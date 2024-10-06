@@ -15,5 +15,6 @@ public class DollDto {
     private String ruler;
     private String series;
     private String namePerson;
+    private String description;
     private Long price;
 }

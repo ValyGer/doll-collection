@@ -16,6 +16,7 @@ public class DollMappingImpl implements DollMapping {
         dollDto.setRuler(doll.getRuler());
         dollDto.setSeries(doll.getSeries());
         dollDto.setNamePerson(doll.getNamePerson());
+        dollDto.setDescription(doll.getDescription());
         dollDto.setPrice(doll.getPrice());
         return dollDto;
     }
@@ -29,6 +30,7 @@ public class DollMappingImpl implements DollMapping {
         doll.setRuler(dollDto.getRuler());
         doll.setSeries(dollDto.getSeries());
         doll.setNamePerson(dollDto.getNamePerson());
+        doll.setDescription(dollDto.getDescription());
         doll.setPrice(dollDto.getPrice());
         return doll;
     }
