@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.crg">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${doll.namePerson}]] &ndash; кукла</title>
+</head>
+<body>
+<a data-th-href="@{/dolls}">&larr; К списку кукол</a>
+<h1 data-th-text="${doll.series}"></h1>
+<br>
+<!--<div th:if="${doll.image}">-->
+<!--    <img width="140" th:src="@{rest/{dollId}/avatar(dollId=${doll.id})}" alt="Doll image">-->
+<!--</div>-->
+<br>
+<ul>
+    <li><strong>ID</strong>: <span data-th-text="${doll.dollId}"></span></li>
+    <li><strong>Год выпуска куклы</strong>: <span data-th-text="${doll.year}"></span></li>
+    <li><strong>Наименование бренда</strong>: <span data-th-text="${doll.brand}"></span></li>
+    <li><strong>Наименование линейки</strong>: <span data-th-text="${doll.ruler}"></span></li>
+    <li><strong>Наименование серии</strong>: <span data-th-text="${doll.series}"></span></li>
+    <li><strong>Наименование персонажа</strong>: <span data-th-text="${doll.namePerson}"></span></li>
+    <li><strong>Описание</strong>: <span data-th-text="${doll.description}"></span></li>
+    <li><strong>Стоимость в рублях</strong>: <span data-th-text="${doll.price}"></span></li>
+</ul>
+
+<a data-th-href="@{/dolls/{dollId}/edit(dollId=${doll.id})}">&larr; Редактировать</a>
+<form method="post" data-th-action="@{/dolls/{dollId}/delete(dollId=${doll.id})}">
+    <button type="submit">Удалить</button>
+</form>
+<form method="post" data-th-action="@{/logout}">
+    <button type="submit">Выйти</button>
+</form>
+</body>
+</html>
