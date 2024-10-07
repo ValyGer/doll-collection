@@ -1,10 +1,12 @@
 package ru.collection.doll_collection.mapping_service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.collection.doll_collection.dto.DollDto;
+import ru.collection.doll_collection.dto.DollInputDto;
+import ru.collection.doll_collection.dto.DollNewDto;
 import ru.collection.doll_collection.entity.Doll;
 
-@Component
+@Service
 public class DollMappingImpl implements DollMapping {
 
     @Override
@@ -22,16 +24,30 @@ public class DollMappingImpl implements DollMapping {
     }
 
     @Override
-    public Doll doolDtoToDoll(DollDto dollDto) {
+    public Doll doolNewDtoToDoll(DollNewDto dollNewDto) {
         Doll doll = new Doll();
-        doll.setId(dollDto.getId());
-        doll.setYear(dollDto.getYear());
-        doll.setBrand(dollDto.getBrand());
-        doll.setRuler(dollDto.getRuler());
-        doll.setSeries(dollDto.getSeries());
-        doll.setNamePerson(dollDto.getNamePerson());
-        doll.setDescription(dollDto.getDescription());
-        doll.setPrice(dollDto.getPrice());
+        doll.setId(dollNewDto.getId());
+        doll.setYear(dollNewDto.getYear());
+        doll.setBrand(dollNewDto.getBrand());
+        doll.setRuler(dollNewDto.getRuler());
+        doll.setSeries(dollNewDto.getSeries());
+        doll.setNamePerson(dollNewDto.getNamePerson());
+        doll.setDescription(dollNewDto.getDescription());
+        doll.setPrice(dollNewDto.getPrice());
+        return doll;
+    }
+
+    @Override
+    public Doll doolInputDtoToDoll(DollInputDto dollInputDto) {
+        Doll doll = new Doll();
+        doll.setId(dollInputDto.getId());
+        doll.setYear(dollInputDto.getYear());
+        doll.setBrand(dollInputDto.getBrand());
+        doll.setRuler(dollInputDto.getRuler());
+        doll.setSeries(dollInputDto.getSeries());
+        doll.setNamePerson(dollInputDto.getNamePerson());
+        doll.setDescription(dollInputDto.getDescription());
+        doll.setPrice(dollInputDto.getPrice());
         return doll;
     }
 }

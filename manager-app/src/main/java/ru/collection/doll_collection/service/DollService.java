@@ -1,15 +1,19 @@
 package ru.collection.doll_collection.service;
 
 import ru.collection.doll_collection.dto.DollDto;
+import ru.collection.doll_collection.dto.DollNewDto;
+import ru.collection.doll_collection.dto.DollUpdateDto;
+
+import java.util.List;
 
 public interface DollService {
-    Object findAllDolls();
+    List<DollDto> findAllDolls();
 
-    DollDto createDoll(DollDto dollDto);
+    DollDto createDoll(DollNewDto dollNewDto);
 
-    void deleteDollById(Long dollId);
+    void deleteDollById(Integer dollId);
 
-    void updateDollById(Long dollId, DollDto dollDto);
+    DollDto updateDollById(Integer dollId, DollUpdateDto dollUpdateDto);
 
-    Object findDollById(Long userId);
+    DollDto findDollById(Integer dollId);
 }

@@ -1,6 +1,5 @@
-package ru.collection.doll_collection.entity;
+package ru.collection.doll_collection.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -8,17 +7,12 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "dolls")
-public class Doll {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DollNewDto {
     private Integer id;
     private Integer year;
     private String brand;
     private String ruler;
     private String series;
-    @Column(name = "name_person")
     private String namePerson;
     private String description;
     private Long price;
