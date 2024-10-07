@@ -2,7 +2,6 @@ package ru.collection.doll_collection.mapping_service;
 
 import org.springframework.stereotype.Service;
 import ru.collection.doll_collection.dto.DollDto;
-import ru.collection.doll_collection.dto.DollUpdateDto;
 import ru.collection.doll_collection.dto.DollNewDto;
 import ru.collection.doll_collection.entity.Doll;
 
@@ -34,20 +33,6 @@ public class DollMappingImpl implements DollMapping {
         doll.setNamePerson(dollNewDto.getNamePerson());
         doll.setDescription(dollNewDto.getDescription());
         doll.setPrice(dollNewDto.getPrice());
-        return doll;
-    }
-
-    @Override
-    public Doll doolInputDtoToDoll(DollUpdateDto dollUpdateDto) {
-        Doll doll = new Doll();
-        doll.setId(dollUpdateDto.getId());
-        doll.setYear(dollUpdateDto.getYear());
-        doll.setBrand(dollUpdateDto.getBrand());
-        doll.setRuler(dollUpdateDto.getRuler());
-        doll.setSeries(dollUpdateDto.getSeries());
-        doll.setNamePerson(dollUpdateDto.getNamePerson());
-        doll.setDescription(dollUpdateDto.getDescription());
-        doll.setPrice(dollUpdateDto.getPrice());
         return doll;
     }
 }
