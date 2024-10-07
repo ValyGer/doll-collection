@@ -1,15 +1,19 @@
 package ru.collection.doll_collection.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 import ru.collection.doll_collection.dto.DollUpdateDto;
 import ru.collection.doll_collection.dto.DollNewDto;
 import ru.collection.doll_collection.service.DollService;
+
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/dolls")
@@ -33,8 +37,16 @@ public class DollController {
 
     // Создание новой куклы и возврат на страницу куклы
     @PostMapping("/new")
-    public String createDoll(DollNewDto dollNewDto) {
-        return "redirect:/dolls/%d".formatted(this.dollService.createDoll(dollNewDto).getId());
+    public String createDoll(@Valid DollNewDto dollNewDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("dolls", dollNewDto);
+            model.addAttribute("errors", bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .toList());
+            return "dolls/new_doll";
+        } else {
+            return "redirect:/dolls/%d".formatted(this.dollService.createDoll(dollNewDto).getId());
+        }
     }
 
     // Получение страницы куклы
@@ -53,7 +65,7 @@ public class DollController {
 
     // Изменение данных куклы
     @PostMapping("/{dollId:\\d+}/edit")
-    public String updateDollById(@PathVariable("dollId") Integer dollId, DollUpdateDto dollUpdateDto) {
+    public String updateDollById(@PathVariable("dollId") Integer dollId, @Valid DollUpdateDto dollUpdateDto) {
         this.dollService.updateDollById(dollId, dollUpdateDto);
         return "redirect:/dolls/%d".formatted(dollId);
     }
@@ -63,5 +75,14 @@ public class DollController {
     public String deleteDollById(@PathVariable Integer dollId) {
         this.dollService.deleteDollById(dollId);
         return "redirect:/dolls";
+    }
+
+    // Обработка ошибки товар не найден
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleNoSuchElementException(NoSuchElementException exception, Model model,
+                                               HttpServletResponse response) {
+        response.setStatus(HttpStatus.NOT_FOUND.value());
+        model.addAttribute("error", exception.getMessage());
+        return "errors/404";
     }
 }

@@ -13,8 +13,8 @@ import ru.collection.doll_collection.entity.Doll;
 import ru.collection.doll_collection.mapping_service.DollMapping;
 import ru.collection.doll_collection.repository.DollRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -30,7 +30,6 @@ public class DollServiceImpl implements DollService {
     // Получение списка всех кукол
     @Override
     public List<DollDto> findAllDolls() {
-        List<Doll> dolls = new ArrayList<>();
         log.info("Получение списка всех кукол");
         return dollRepository.findAll().stream()
                 .map(dollMapping::doolToDollDto)
@@ -109,7 +108,7 @@ public class DollServiceImpl implements DollService {
             return doll;
         } else {
             log.warn("Куклы с id = {} не найдена", dollId);
-            throw new RuntimeException("Куклы с id = " + dollId + " не найдена");
+            throw new NoSuchElementException("Кукла с id = " + dollId + " не найдена");
         }
     }
 

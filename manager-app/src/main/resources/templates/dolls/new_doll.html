@@ -7,6 +7,12 @@
 <body>
 <a data-th-href="@{/dolls}">&larr; Вернуться к списку кукол</a>
     <h1>Добавляем новую куклу :))</h1>
+    <div data-th-if="${errors}">
+        <h3>Допущены ошибки при вводе данных</h3>
+        <ul>
+            <li data-th-each="error:${errors}" data-th-text="${error}"></li>
+        </ul>
+    </div>
     <form method="post" data-th-action="@{/dolls/new}" enctype="multipart/form-data">
         <label>
             Год выпуска:<br>
