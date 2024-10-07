@@ -76,7 +76,8 @@ public class DollController {
             return "dolls/edit_doll";
         } else {
             this.dollService.updateDollById(dollId, dollUpdateDto);
-            return "redirect:/dolls/%d".formatted(dollId);        }
+            return "redirect:/dolls/%d".formatted(dollId);
+        }
     }
 
     // Удаление куклы
