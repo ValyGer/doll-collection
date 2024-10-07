@@ -17,4 +17,6 @@ public class DollDto {
     private String namePerson;
     private String description;
     private Long price;
+    private String promImage;
+    private String myImage;
 }

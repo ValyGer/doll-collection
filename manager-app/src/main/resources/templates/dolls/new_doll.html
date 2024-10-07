@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Новая кукла &ndash; создаем новую куклу</title>
+    <title>Новая кукла</title>
 </head>
 <body>
 <a data-th-href="@{/dolls}">&larr; К списку кукол</a>
@@ -36,10 +36,14 @@
             Стоимость единицы товара в рублях:<br>
             <input type="text" name="price">
         </label><br>
-<!--        <label>-->
-<!--            Картинка:<br>-->
-<!--            <input type="file" name="image">-->
-<!--        </label><br>-->
+        <label>
+            Картинка моя:<br>
+            <input type="file" name="myImage">
+        </label><br>
+        <label>
+            Картинка промо:<br>
+            <input type="file" name="promImage">
+        </label><br>
         <button type="submit">Создать</button>
     </form>
 </body>

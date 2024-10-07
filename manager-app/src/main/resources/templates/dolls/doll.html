@@ -7,10 +7,26 @@
 <body>
 <a data-th-href="@{/dolls}">&larr; К списку кукол</a>
 <h1 data-th-text="${doll.series}"></h1>
-<br>
-<!--<div th:if="${doll.image}">-->
-<!--    <img width="140" th:src="@{rest/{dollId}/avatar(dollId=${doll.id})}" alt="Doll image">-->
-<!--</div>-->
+<table>
+    <thead>
+    <tr>
+        <th>Вид у меня</th>
+        <th>Вид промо</th>
+    </tr>
+    </thead>
+    <tbody>
+        <td>
+            <div th:if="${doll.myImage}">
+                <img width="140" th:src="@{{dollId}/myImage(dollId=${doll.id})}" alt="Doll myImage">
+            </div>
+        </td>
+        <td>
+            <div th:if="${doll.promImage}">
+                <img width="140" th:src="@{{dollId}/promImage(dollId=${doll.id})}" alt="Doll promImage">
+            </div>
+        </td>
+    </tbody>
+</table>
 <br>
 <ul>
     <li><strong>ID</strong>: <span data-th-text="${doll.id}"></span></li>

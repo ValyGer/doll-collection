@@ -1,6 +1,8 @@
 package ru.collection.doll_collection.dto;
 
+import jakarta.persistence.Column;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -16,4 +18,6 @@ public class DollNewDto {
     private String namePerson;
     private String description;
     private Long price;
+    private MultipartFile promImage;
+    private MultipartFile myImage;
 }

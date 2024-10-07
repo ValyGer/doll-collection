@@ -4,11 +4,28 @@
     <title>Редактирование куклы &laquo; [[${doll.namePerson}]]&raquo; &ndash;</title>
 </head>
 <body>
-<a data-th-href="@{/dolls/{dollId}(dollId=${doll.id})}">&larr; К кукле</a>
+<a data-th-href="@{/dolls/{dollId}(dollId=${doll.id})}">&larr; Обратно к кукле</a>
     <h1>Редактирование куклы [[${doll.namePerson}]]</h1>
-<!--<div th:if="${doll.image}">-->
-<!--    <img width="140" th:src="@{rest/avatar}" alt="Product image">-->
-<!--</div>-->
+<table>
+    <thead>
+    <tr>
+        <th>Вид у меня</th>
+        <th>Вид промо</th>
+    </tr>
+    </thead>
+    <tbody>
+        <td>
+            <div th:if="${doll.myImage}">
+                <img width="140" th:src="@{update/myImage}" alt="Product myImage">
+            </div>
+        </td>
+        <td>
+            <div th:if="${doll.promImage}">
+                <img width="140" th:src="@{update/promImage}" alt="Product promImage">
+            </div>
+        </td>
+    </tbody>
+</table>
 <br>
     <form method="post" data-th-action="@{/dolls/{dollId}/edit(dollId=${doll.id})}" enctype="multipart/form-data">
         <label>
@@ -39,10 +56,14 @@
             Стоимость единицы товара в рублях:<br>
             <input type="text" name="price" data-th-value="${doll.price}">
         </label><br>
-<!--        <label>-->
-<!--            Заменить изображение:<br>-->
-<!--            <input type="file", name="image">-->
-<!--        </label><br>-->
+        <label>
+            Заменить мое изображение:<br>
+            <input type="file", name="myImage">
+        </label><br>
+        <label>
+            Заменить промо изображение:<br>
+            <input type="file", name="promImage">
+        </label><br>
         <button type="submit">Изменить</button>
     </form>
 </body>

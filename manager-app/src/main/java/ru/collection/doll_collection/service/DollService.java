@@ -5,6 +5,7 @@ import ru.collection.doll_collection.dto.DollNewDto;
 import ru.collection.doll_collection.dto.DollUpdateDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DollService {
     List<DollDto> findAllDolls();
@@ -16,4 +17,10 @@ public interface DollService {
     DollDto updateDollById(Integer dollId, DollUpdateDto dollUpdateDto);
 
     DollDto findDollById(Integer dollId);
+
+
+    // методы обработки картинок
+    Optional<byte[]> findMyImage(Integer dollId);
+
+    Optional<byte[]> findPromImage(Integer dollId);
 }
