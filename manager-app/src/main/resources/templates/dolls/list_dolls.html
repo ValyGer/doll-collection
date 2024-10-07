@@ -27,7 +27,7 @@
         <tr data-th-each="doll:${dolls}">
             <td>
                 <a data-th-href="@{dolls/{dollId}(dollId=${doll.id})}"
-                   data-th-text="${doll.dollId}"></a>
+                   data-th-text="${doll.id}"></a>
             </td>
             <td data-th-text="${doll.year}"></td>
             <td data-th-text="${doll.brand}"></td>

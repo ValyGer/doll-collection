@@ -14,6 +14,7 @@ public class Doll {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "year_create")
     private Integer year;
     private String brand;
     private String ruler;
