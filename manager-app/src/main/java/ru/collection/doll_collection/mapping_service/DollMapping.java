@@ -1,8 +1,8 @@
 package ru.collection.doll_collection.mapping_service;
 
 import ru.collection.doll_collection.dto.DollDto;
-import ru.collection.doll_collection.dto.DollInputDto;
 import ru.collection.doll_collection.dto.DollNewDto;
+import ru.collection.doll_collection.dto.DollUpdateDto;
 import ru.collection.doll_collection.entity.Doll;
 
 public interface DollMapping {
@@ -11,5 +11,5 @@ public interface DollMapping {
 
     Doll doolNewDtoToDoll(DollNewDto dollNewDto);
 
-    Doll doolInputDtoToDoll(DollInputDto dollInputDto);
+    Doll doolInputDtoToDoll(DollUpdateDto dollUpdateDto);
 }

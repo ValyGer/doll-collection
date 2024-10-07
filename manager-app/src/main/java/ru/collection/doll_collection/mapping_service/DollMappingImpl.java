@@ -2,7 +2,7 @@ package ru.collection.doll_collection.mapping_service;
 
 import org.springframework.stereotype.Service;
 import ru.collection.doll_collection.dto.DollDto;
-import ru.collection.doll_collection.dto.DollInputDto;
+import ru.collection.doll_collection.dto.DollUpdateDto;
 import ru.collection.doll_collection.dto.DollNewDto;
 import ru.collection.doll_collection.entity.Doll;
 
@@ -38,16 +38,16 @@ public class DollMappingImpl implements DollMapping {
     }
 
     @Override
-    public Doll doolInputDtoToDoll(DollInputDto dollInputDto) {
+    public Doll doolInputDtoToDoll(DollUpdateDto dollUpdateDto) {
         Doll doll = new Doll();
-        doll.setId(dollInputDto.getId());
-        doll.setYear(dollInputDto.getYear());
-        doll.setBrand(dollInputDto.getBrand());
-        doll.setRuler(dollInputDto.getRuler());
-        doll.setSeries(dollInputDto.getSeries());
-        doll.setNamePerson(dollInputDto.getNamePerson());
-        doll.setDescription(dollInputDto.getDescription());
-        doll.setPrice(dollInputDto.getPrice());
+        doll.setId(dollUpdateDto.getId());
+        doll.setYear(dollUpdateDto.getYear());
+        doll.setBrand(dollUpdateDto.getBrand());
+        doll.setRuler(dollUpdateDto.getRuler());
+        doll.setSeries(dollUpdateDto.getSeries());
+        doll.setNamePerson(dollUpdateDto.getNamePerson());
+        doll.setDescription(dollUpdateDto.getDescription());
+        doll.setPrice(dollUpdateDto.getPrice());
         return doll;
     }
 }
