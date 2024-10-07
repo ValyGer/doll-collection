@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.crg">
 <head>
     <meta charset="UTF-8">
-    <title>[[${doll.namePerson}]] &ndash; кукла</title>
+    <title>Кукла [[${doll.namePerson}]]</title>
 </head>
 <body>
-<a data-th-href="@{/dolls}">&larr; К списку кукол</a>
+<a data-th-href="@{/dolls}">&larr; Вернуться к списку куколок</a>
 <h1 data-th-text="${doll.series}"></h1>
 <table>
     <thead>
@@ -39,9 +39,9 @@
     <li><strong>Стоимость в рублях</strong>: <span data-th-text="${doll.price}"></span></li>
 </ul>
 
-<a data-th-href="@{/dolls/{dollId}/edit(dollId=${doll.id})}">&larr; Редактировать</a>
+<a data-th-href="@{/dolls/{dollId}/edit(dollId=${doll.id})}">&larr; Отредактировать данные куколки</a>
 <form method="post" data-th-action="@{/dolls/{dollId}/delete(dollId=${doll.id})}">
-    <button type="submit">Удалить</button>
+    <button type="submit">Удалить куклу ((</button>
 </form>
 <form method="post" data-th-action="@{/logout}">
     <button type="submit">Выйти</button>
