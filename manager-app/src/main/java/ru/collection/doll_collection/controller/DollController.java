@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import ru.collection.doll_collection.dto.DollUpdateDto;
 import ru.collection.doll_collection.dto.DollNewDto;
+import ru.collection.doll_collection.dto.DollUpdateDto;
 import ru.collection.doll_collection.service.DollService;
 
 import java.util.NoSuchElementException;
@@ -39,7 +39,7 @@ public class DollController {
     @PostMapping("/new")
     public String createDoll(@Valid DollNewDto dollNewDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("dolls", dollNewDto);
+            model.addAttribute("doll", dollNewDto);
             model.addAttribute("errors", bindingResult.getAllErrors().stream()
                     .map(ObjectError::getDefaultMessage)
                     .toList());
@@ -65,9 +65,18 @@ public class DollController {
 
     // Изменение данных куклы
     @PostMapping("/{dollId:\\d+}/edit")
-    public String updateDollById(@PathVariable("dollId") Integer dollId, @Valid DollUpdateDto dollUpdateDto) {
-        this.dollService.updateDollById(dollId, dollUpdateDto);
-        return "redirect:/dolls/%d".formatted(dollId);
+    public String updateDollById(@PathVariable("dollId") Integer dollId, @Valid DollUpdateDto dollUpdateDto,
+                                 BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            dollUpdateDto.setId(dollId);
+            model.addAttribute("doll", dollUpdateDto);
+            model.addAttribute("errors", bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .toList());
+            return "dolls/edit_doll";
+        } else {
+            this.dollService.updateDollById(dollId, dollUpdateDto);
+            return "redirect:/dolls/%d".formatted(dollId);        }
     }
 
     // Удаление куклы
