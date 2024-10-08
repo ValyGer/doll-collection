@@ -13,6 +13,7 @@ import ru.collection.doll_collection.entity.Doll;
 import ru.collection.doll_collection.mapping_service.DollMapping;
 import ru.collection.doll_collection.repository.DollRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
