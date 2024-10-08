@@ -48,6 +48,7 @@ public class FileGeneratorImpl implements FileGenerator {
                 stringsDoll.add(dataDoll);
             }
             writer.writeAll(stringsDoll);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
