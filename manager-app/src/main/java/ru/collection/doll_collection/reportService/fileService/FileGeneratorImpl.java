@@ -1,4 +1,4 @@
-package ru.collection.doll_collection.fileService;
+package ru.collection.doll_collection.reportService.fileService;
 
 import com.opencsv.CSVWriter;
 import lombok.RequiredArgsConstructor;
