@@ -3,7 +3,10 @@ package ru.collection.doll_collection.controller;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.collection.doll_collection.reportService.emailService.EmailServiceImpl;
 import ru.collection.doll_collection.reportService.fileService.FileGenerator;
 import ru.collection.doll_collection.service.DollService;
@@ -38,7 +41,7 @@ public class DollRestController {
     }
 
     @GetMapping(value = "/createResponse")
-    public void getResponseFile() throws MessagingException{
+    public void getResponseFile() throws MessagingException {
         fileGenerator.writeDataToFile();
         emailService.sendEmailWithFile();
     }

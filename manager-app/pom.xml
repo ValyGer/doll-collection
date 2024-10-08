@@ -62,7 +62,6 @@
             <version>${querydsl.version}</version>
         </dependency>
 
-
 <!--        Файл БД-->
         <dependency>
             <groupId>com.opencsv</groupId>

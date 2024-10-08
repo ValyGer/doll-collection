@@ -13,7 +13,6 @@ import ru.collection.doll_collection.entity.Doll;
 import ru.collection.doll_collection.mapping_service.DollMapping;
 import ru.collection.doll_collection.repository.DollRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -136,8 +135,7 @@ public class DollServiceImpl implements DollService {
     //-----------------------------------------------------------------------------------------------------------------
     //Для получения данных для записи в файл
     @Override
-    public List<Doll> findAllDataDolls(){
-        List<Doll> dolls = new ArrayList<>();
+    public List<Doll> findAllDataDolls() {
         log.info("Получение списка всех кукол");
         return dollRepository.findAll();
     }
