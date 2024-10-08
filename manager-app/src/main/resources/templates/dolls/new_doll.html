@@ -5,36 +5,42 @@
     <title>Новая кукла</title>
 </head>
 <body>
-<a data-th-href="@{/dolls}">&larr; К списку кукол</a>
-    <h1>Новый товар</h1>
+<a data-th-href="@{/dolls}">&larr; Вернуться к списку кукол</a>
+    <h1>Добавляем новую куклу :))</h1>
+    <div style="color:red" data-th-if="${errors}">
+        <h3>Допущены ошибки при вводе данных</h3>
+        <ul>
+            <li data-th-each="error:${errors}" data-th-text="${error}"></li>
+        </ul>
+    </div>
     <form method="post" data-th-action="@{/dolls/new}" enctype="multipart/form-data">
         <label>
             Год выпуска:<br>
-            <input type="text" name="year">
+            <input type="text" name="year" data-th-value="${doll?.year}">
         </label><br>
         <label>
             Бренд:<br>
-            <input type="text" name="brand">
+            <input type="text" name="brand" data-th-value="${doll?.brand}">
         </label><br>
         <label>
             Линейка:<br>
-            <input type="text" name="ruler">
+            <input type="text" name="ruler" data-th-value="${doll?.ruler}">
         </label><br>
         <label>
             Серия:<br>
-            <input type="text" name="series">
+            <input type="text" name="series" data-th-value="${doll?.series}">
         </label><br>
         <label>
             Имя персонажа:<br>
-            <input type="text" name="namePerson">
+            <input type="text" name="namePerson" data-th-value="${doll?.namePerson}">
         </label><br>
         <label>
             Описание:<br>
-            <textarea name="description"></textarea>
+            <textarea name="description" data-th-text="${doll?.description}"></textarea>
         </label><br>
         <label>
-            Стоимость единицы товара в рублях:<br>
-            <input type="text" name="price">
+            Стоимость в рублях:<br>
+            <input type="text" name="price" data-th-value="${doll?.price}">
         </label><br>
         <label>
             Картинка моя:<br>
@@ -44,7 +50,7 @@
             Картинка промо:<br>
             <input type="file" name="promImage">
         </label><br>
-        <button type="submit">Создать</button>
+        <button type="submit">Добавляем)))</button>
     </form>
 </body>
 </html>

@@ -31,7 +31,6 @@ public class DollMappingImpl implements DollMapping {
     @Override
     public Doll doolNewDtoToDoll(DollNewDto dollNewDto) {
         Doll doll = new Doll();
-        doll.setId(dollNewDto.getId());
         doll.setYear(dollNewDto.getYear());
         doll.setBrand(dollNewDto.getBrand());
         doll.setRuler(dollNewDto.getRuler());
