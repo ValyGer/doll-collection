@@ -23,13 +23,14 @@ public class FileGeneratorImpl implements FileGenerator {
     @Override
     public void writeDataToFile() {
         File file = new File("./manager-app/src/main/resources/data/data_db.csv");
-
+        log.info("Создан файл с отчетом");
         try {
             FileWriter outputFile = new FileWriter(file);
 
             CSVWriter writer = new CSVWriter(outputFile);
 
             List<Doll> dollList = dollService.findAllDataDolls();
+            log.info("Данные из базы успешно выгружены");
             List<String[]> stringsDoll = new ArrayList<>();
             for (Doll doll : dollList) {
                 String[] dataDoll = new String[]{
@@ -47,9 +48,13 @@ public class FileGeneratorImpl implements FileGenerator {
                 };
                 stringsDoll.add(dataDoll);
             }
+            log.info("Данные подготовлены к записи");
+
             writer.writeAll(stringsDoll);
             writer.close();
+            log.info("Данные успешно записаны в файл");
         } catch (IOException e) {
+            log.info("Выгрузка отчета прервана!!!");
             e.printStackTrace();
         }
     }

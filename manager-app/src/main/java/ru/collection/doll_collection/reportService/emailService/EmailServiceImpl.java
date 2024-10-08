@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.Objects;
 
 
@@ -21,7 +22,6 @@ public class EmailServiceImpl implements EmailService{
     private final JavaMailSender mailSender;
 
     @Override
-    @Async
     public void sendEmailWithFile() throws MessagingException {
         String recipient = "valentin.gerasimov.data@mail.ru";
         log.info("Получение адресата письма.");
@@ -36,9 +36,9 @@ public class EmailServiceImpl implements EmailService{
         log.info("Сгенерированы атрибуты письма.");
 
         // добавляем файл
-        ClassPathResource classPathResource = new ClassPathResource("./manager-app/src/main/resources/data/data_db.csv");
-        mimeMessageHelper.addAttachment(Objects.requireNonNull(classPathResource.getFilename()), classPathResource);
-        log.info("Отправляемый файл добавлен в письмо успешно. Имя файла: {}", classPathResource.getFilename());
+        File file = new File("./manager-app/src/main/resources/data/data_db.csv");
+        mimeMessageHelper.addAttachment(Objects.requireNonNull(file.getName()), file);
+        log.info("Отправляемый файл добавлен в письмо успешно. Имя файла: {}", file.getName());
 
         mailSender.send(message);
         log.info("Письмо успешно отправлено!");
