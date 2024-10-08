@@ -132,4 +132,13 @@ public class DollServiceImpl implements DollService {
     public Optional<byte[]> findPromImage(Integer dollId) {
         return validDollInDb(dollId).map(Doll::getPromImage).filter(StringUtils::hasText).flatMap(imageService::get);
     }
+
+    //-----------------------------------------------------------------------------------------------------------------
+    //Для получения данных для записи в файл
+    @Override
+    public List<Doll> findAllDataDolls(){
+        List<Doll> dolls = new ArrayList<>();
+        log.info("Получение списка всех кукол");
+        return dollRepository.findAll();
+    }
 }
