@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.crg">
+<head>
+    <meta charset="UTF-8">
+    <title>Все куклы</title>
+</head>
+<body>
+<a data-th-href="@{/dolls/new}">+ Создать новую куклу</a><br>
+    <h1>Список кукол</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Год выпуска</th>
+            <th>Бренд</th>
+            <th>Линейка</th>
+            <th>Серия</th>
+            <th>Имя персонажа</th>
+            <th>Описание</th>
+            <th>Стоимость единицы <br>
+                товара в рублях</th>
+            <th>Вид промоушен</th>
+            <th>Вид у меня</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="doll:${dolls}">
+            <td>
+                <a data-th-href="@{dolls/{dollId}(dollId=${doll.id})}"
+                   data-th-text="${doll.id}"></a>
+            </td>
+            <td data-th-text="${doll.year}"></td>
+            <td data-th-text="${doll.brand}"></td>
+            <td data-th-text="${doll.ruler}"></td>
+            <td data-th-text="${doll.series}"></td>
+            <td data-th-text="${doll.namePerson}"></td>
+            <td data-th-text="${doll.description}"></td>
+            <td data-th-text="${doll.price}"></td>
+            <td>
+                <div th:if="${doll.promImage}">
+                    <img width="140" th:src="@{dolls/{dollId}/promImage(dollId=${doll.id})}" alt="Doll promImage">
+                </div>
+            </td>
+            <td>
+                <div th:if="${doll.myImage}">
+                    <img width="140" th:src="@{dolls/{dollId}/myImage(dollId=${doll.id})}" alt="Doll myImage">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+<form method="post" data-th-action="@{/logout}">
+    <button type="submit">Выйти</button>
+</form>
+</body>
+</html>
