@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.collection.doll_collection.fileService.FileGenerator;
 import ru.collection.doll_collection.service.DollService;
 
 @RestController
@@ -14,6 +15,7 @@ import ru.collection.doll_collection.service.DollService;
 public class DollRestController {
 
     private final DollService dollService;
+    private final FileGenerator fileGenerator;
 
     @GetMapping(value = "/{dollId}/myImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findMyImage(@PathVariable("dollId") Integer dollId) {
@@ -33,6 +35,11 @@ public class DollRestController {
     @GetMapping(value = "/{dollId}/update/promImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findPromImageForUpdate(@PathVariable("dollId") Integer dollId) {
         return dollService.findPromImage(dollId).orElseThrow(RuntimeException::new);
+    }
+
+    @GetMapping(value = "/createResponse")
+    public void getResponseFile(){
+        fileGenerator.writeDataToFile();
     }
 }
 
