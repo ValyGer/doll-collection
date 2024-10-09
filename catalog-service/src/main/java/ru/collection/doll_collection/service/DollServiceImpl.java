@@ -1,5 +1,6 @@
 package ru.collection.doll_collection.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -37,11 +38,16 @@ public class DollServiceImpl implements DollService {
     }
 
     // Сохранение новой куклы
+    @Transactional
     @Override
     public DollDto createDoll(DollNewDto dollNewDto) {
         Doll doll = dollRepository.save(dollMapping.doolNewDtoToDoll(dollNewDto));
-        saveOnDisk(dollNewDto.getMyImage());
-        saveOnDisk(dollNewDto.getPromImage());
+        if (dollNewDto.getMyImage() != null) {
+            saveOnDisk(dollNewDto.getMyImage());
+        }
+        if (dollNewDto.getPromImage() != null) {
+            saveOnDisk(dollNewDto.getPromImage());
+        }
         log.info("Кукла сохранена. Присвоен id = {}", doll.getId());
         return dollMapping.doolToDollDto(doll);
     }
@@ -53,6 +59,7 @@ public class DollServiceImpl implements DollService {
         return dollMapping.doolToDollDto(validDollInDb(dollId).get());
     }
 
+    @Transactional
     @Override
     public DollDto updateDollById(Integer dollId, DollUpdateDto dollUpdateDto) {
         log.info("Вызов метода поиска куклы по id");
@@ -93,6 +100,7 @@ public class DollServiceImpl implements DollService {
         return dollMapping.doolToDollDto(dollSave);
     }
 
+    @Transactional
     @Override
     public void deleteDollById(Integer dollId) {
         log.info("Вызов метода поиска куклы по id");
