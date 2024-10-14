@@ -56,14 +56,14 @@ public class DollServiceImpl implements DollService {
     @Override
     public DollDto findDollById(Integer dollId) {
         log.info("Вызов метода поиска куклы по id");
-        return dollMapping.doolToDollDto(validDollInDb(dollId).get());
+        return dollMapping.doolToDollDto(findDollByIdAndReportOptional(dollId).get());
     }
 
     @Transactional
     @Override
     public DollDto updateDollById(Integer dollId, DollUpdateDto dollUpdateDto) {
         log.info("Вызов метода поиска куклы по id");
-        Doll doll = validDollInDb(dollId).get();
+        Doll doll = findDollByIdAndReportOptional(dollId).get();
         if (dollUpdateDto.getYear() != null) {
             doll.setYear(dollUpdateDto.getYear());
         }
@@ -104,12 +104,12 @@ public class DollServiceImpl implements DollService {
     @Override
     public void deleteDollById(Integer dollId) {
         log.info("Вызов метода поиска куклы по id");
-        validDollInDb(dollId);
+        findDollByIdAndReportOptional(dollId);
         dollRepository.deleteById(dollId);
         log.info("Кукла с id = {} успешно удалена", dollId);
     }
 
-    private Optional<Doll> validDollInDb(Integer dollId) {
+    private Optional<Doll> findDollByIdAndReportOptional(Integer dollId) {
         Optional<Doll> doll = dollRepository.findById(dollId);
         if (doll.isPresent()) {
             log.info("Кукла с id = {} найдена", dollId);
@@ -132,12 +132,12 @@ public class DollServiceImpl implements DollService {
 
     @Override
     public Optional<byte[]> findMyImage(Integer dollId) {
-        return validDollInDb(dollId).map(Doll::getMyImage).filter(StringUtils::hasText).flatMap(imageService::get);
+        return findDollByIdAndReportOptional(dollId).map(Doll::getMyImage).filter(StringUtils::hasText).flatMap(imageService::get);
     }
 
     @Override
     public Optional<byte[]> findPromImage(Integer dollId) {
-        return validDollInDb(dollId).map(Doll::getPromImage).filter(StringUtils::hasText).flatMap(imageService::get);
+        return findDollByIdAndReportOptional(dollId).map(Doll::getPromImage).filter(StringUtils::hasText).flatMap(imageService::get);
     }
 
     //-----------------------------------------------------------------------------------------------------------------

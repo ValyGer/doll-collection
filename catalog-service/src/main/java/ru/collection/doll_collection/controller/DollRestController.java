@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/dolls")
+@RequestMapping("dolls")
 public class DollRestController {
 
     private final DollService dollService;
@@ -34,7 +34,7 @@ public class DollRestController {
 
     // Получение списка всех кукол
     @GetMapping
-    public ResponseEntity<List<DollDto>> getAllDolls() {
+    public ResponseEntity<List<DollDto>> fineAllDolls() {
         return ResponseEntity.ok().body(dollService.findAllDolls());
     }
 
@@ -58,13 +58,13 @@ public class DollRestController {
         }
     }
 
-    @GetMapping("/{dollId:\\d+}")
-    public ResponseEntity<?> getDollById(@PathVariable("dollId") Integer dollId) {
+    @GetMapping("/{dollId}")
+    public ResponseEntity<?> findDollById(@PathVariable("dollId") Integer dollId) {
         return ResponseEntity.ok().body(dollService.findDollById(dollId));
     }
 
     // Изменение данных куклы
-    @PatchMapping("/{dollId:\\d+}/edit")
+    @PatchMapping("/{dollId}")
     public ResponseEntity<?> updateDollById(@PathVariable("dollId") Integer dollId,
                                             @Valid @RequestBody DollUpdateDto dollUpdateDto,
                                             BindingResult bindingResult) throws BindException {
@@ -80,8 +80,8 @@ public class DollRestController {
     }
 
     // Удаление куклы
-    @DeleteMapping("/{dollId:\\d+}")
-    public ResponseEntity<Void> deleteDollById(@PathVariable Integer dollId) {
+    @DeleteMapping("/{dollId}")
+    public ResponseEntity<Void> deleteDollById(@PathVariable("dollId") Integer dollId) {
         dollService.deleteDollById(dollId);
         return ResponseEntity.noContent().build();
     }

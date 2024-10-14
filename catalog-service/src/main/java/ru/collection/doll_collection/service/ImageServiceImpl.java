@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class ImageServiceImpl implements ImageService {
-    @Value("./manager-app/src/main/resources/image")
+    @Value("./catalog-service/src/main/resources/image")
     private String bucket;
 
     @Override
