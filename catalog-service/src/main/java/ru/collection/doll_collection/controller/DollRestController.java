@@ -116,7 +116,7 @@ public class DollRestController {
     }
 
     // Создание и генерация отчета
-    @GetMapping(value = "/createResponse")
+    @PostMapping(value = "/createResponse")
     public void getResponseFile() throws MessagingException {
         fileGenerator.writeDataToFile();
         emailService.sendEmailWithFile();

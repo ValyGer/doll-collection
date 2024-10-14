@@ -94,4 +94,11 @@ public class DollController {
         model.addAttribute("error", exception.getMessage());
         return "errors/404";
     }
+
+    // Создание и генерация отчета
+    @PostMapping(value = "/createResponse")
+    public String sendResponseFile() {
+        dollManagerClient.createDataFile();
+        return "dolls/send_success";
+    }
 }

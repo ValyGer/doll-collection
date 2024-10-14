@@ -13,7 +13,6 @@ import ru.collection.doll_collection.dto.DollUpdateDto;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DollManagerClientImpl implements DollManagerClient {
@@ -99,7 +98,7 @@ public class DollManagerClientImpl implements DollManagerClient {
         try {
             return this.restClient
                     .get()
-                    .uri("dolls//{dollId}/myImage", dollId)
+                    .uri("dolls/{dollId}/myImage", dollId)
                     .retrieve()
                     .body(byte[].class);
         } catch (HttpClientErrorException.NotFound exception) {
@@ -112,7 +111,7 @@ public class DollManagerClientImpl implements DollManagerClient {
         try {
             return this.restClient
                     .get()
-                    .uri("dolls//{dollId}/promImage", dollId)
+                    .uri("dolls/{dollId}/promImage", dollId)
                     .retrieve()
                     .body(byte[].class);
         } catch (HttpClientErrorException.NotFound exception) {
@@ -122,6 +121,14 @@ public class DollManagerClientImpl implements DollManagerClient {
 
     @Override
     public void createDataFile() {
-
+        try {
+            this.restClient
+                    .post()
+                    .uri("dolls/createResponse")
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NoSuchElementException(exception);
+        }
     }
 }

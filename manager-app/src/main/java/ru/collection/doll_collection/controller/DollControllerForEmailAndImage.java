@@ -35,12 +35,4 @@ public class DollControllerForEmailAndImage {
     public byte[] findPromImageForUpdate(@PathVariable("dollId") Integer dollId) {
         return dollManagerClient.findPromImage(dollId);
     }
-
-    // Создание и генерация отчета
-    @GetMapping(value = "/createResponse")
-    public void getResponseFile() {
-        dollManagerClient.createDataFile();
-//        fileGenerator.writeDataToFile();
-//        emailService.sendEmailWithFile();
-    }
 }

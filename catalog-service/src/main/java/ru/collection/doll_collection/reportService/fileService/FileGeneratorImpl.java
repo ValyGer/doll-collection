@@ -22,7 +22,7 @@ public class FileGeneratorImpl implements FileGenerator {
 
     @Override
     public void writeDataToFile() {
-        File file = new File("./manager-app/src/main/resources/data/data_db.csv");
+        File file = new File("./catalog-service/src/main/resources/data/data_db.csv");
         log.info("Создан файл с отчетом");
         try {
             FileWriter outputFile = new FileWriter(file);

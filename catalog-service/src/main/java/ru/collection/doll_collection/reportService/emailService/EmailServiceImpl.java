@@ -34,7 +34,7 @@ public class EmailServiceImpl implements EmailService {
         log.info("Сгенерированы атрибуты письма.");
 
         // добавляем файл
-        File file = new File("./manager-app/src/main/resources/data/data_db.csv");
+        File file = new File("./catalog-service/src/main/resources/data/data_db.csv");
         mimeMessageHelper.addAttachment(Objects.requireNonNull(file.getName()), file);
         log.info("Отправляемый файл добавлен в письмо успешно. Имя файла: {}", file.getName());
 
