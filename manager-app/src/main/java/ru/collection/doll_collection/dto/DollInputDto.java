@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class DollNewDto {
+public class DollInputDto {
     private Integer year;
     private String brand;
     private String ruler;

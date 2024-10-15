@@ -1,21 +1,21 @@
 package ru.collection.doll_collection.client;
 
-import ru.collection.doll_collection.dto.DollDto;
-import ru.collection.doll_collection.dto.DollNewDto;
-import ru.collection.doll_collection.dto.DollUpdateDto;
+import ru.collection.doll_collection.dto.DollInputDto;
+import ru.collection.doll_collection.dto.DollInputUpdateDto;
+import ru.collection.doll_collection.dto.DollOutputDto;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public interface DollManagerClient {
 
-    List<DollDto> getAllDolls();
+    List<DollOutputDto> getAllDolls();
 
-    DollDto createDoll(DollNewDto dollNewDto);
+    DollOutputDto createDoll(DollInputDto dollInputDto) throws IOException;
 
-    DollDto getDollById(Integer dollId);
+    DollOutputDto getDollById(Integer dollId);
 
-    DollDto updateDollById(Integer dollId, DollUpdateDto dollUpdateDto);
+    DollOutputDto updateDollById(Integer dollId, DollInputUpdateDto dollInputUpdateDto) throws IOException;
 
     void deleteDollById(Integer dollId);
 

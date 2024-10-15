@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -29,6 +28,9 @@ public class DollUpdateDto {
     @Size(max = 1024, message = "Давай сделаем описание поменьше")
     private String description;
     private Long price;
-    private MultipartFile promImage;
-    private MultipartFile myImage;
+
+    private byte[] promImage;
+    private String namePromImage;
+    private byte[] myImage;
+    private String nameMyImage;
 }

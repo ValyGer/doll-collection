@@ -7,24 +7,28 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
-import ru.collection.doll_collection.dto.DollDto;
-import ru.collection.doll_collection.dto.DollNewDto;
-import ru.collection.doll_collection.dto.DollUpdateDto;
+import ru.collection.doll_collection.dto.DollInputDto;
+import ru.collection.doll_collection.dto.DollInputUpdateDto;
+import ru.collection.doll_collection.dto.DollOutputDto;
+import ru.collection.doll_collection.dto.DollRequestClient;
+import ru.collection.doll_collection.mapping_service.DtoMapping;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 public class DollManagerClientImpl implements DollManagerClient {
 
-    private static final ParameterizedTypeReference<List<DollDto>> PARAMETERIZED_TYPE_REFERENCE =
+    private static final ParameterizedTypeReference<List<DollOutputDto>> PARAMETERIZED_TYPE_REFERENCE =
             new ParameterizedTypeReference<>() {
             };
 
     private final RestClient restClient;
+    private final DtoMapping dtoMapping;
 
     @Override
-    public List<DollDto> getAllDolls() {
+    public List<DollOutputDto> getAllDolls() {
         return this.restClient
                 .get()
                 .uri("dolls")
@@ -33,15 +37,16 @@ public class DollManagerClientImpl implements DollManagerClient {
     }
 
     @Override
-    public DollDto createDoll(DollNewDto dollNewDto) {
+    public DollOutputDto createDoll(DollInputDto dollInputDto) throws IOException {
+        DollRequestClient dollRequestClient = dtoMapping.dollInputToDollRequestClient(dollInputDto);
         try {
             return this.restClient
                     .post()
                     .uri("dolls")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(dollNewDto)
+                    .body(dollRequestClient)
                     .retrieve()
-                    .body(DollDto.class);
+                    .body(DollOutputDto.class);
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
@@ -49,28 +54,29 @@ public class DollManagerClientImpl implements DollManagerClient {
     }
 
     @Override
-    public DollDto getDollById(Integer dollId) {
+    public DollOutputDto getDollById(Integer dollId) {
         try {
             return this.restClient
                     .get()
                     .uri("dolls/{dollId}", dollId)
                     .retrieve()
-                    .body(DollDto.class);
+                    .body(DollOutputDto.class);
         } catch (HttpClientErrorException.NotFound exception) {
             throw new NoSuchElementException(exception);
         }
     }
 
     @Override
-    public DollDto updateDollById(Integer dollId, DollUpdateDto dollUpdateDto) {
+    public DollOutputDto updateDollById(Integer dollId, DollInputUpdateDto dollInputUpdateDto) throws IOException {
+        DollRequestClient dollRequestClient = dtoMapping.dollInputUpdateToDollRequestClient(dollInputUpdateDto);
         try {
             return this.restClient
                     .patch()
                     .uri("dolls/{dollId}", dollId)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(dollUpdateDto)
+                    .body(dollRequestClient)
                     .retrieve()
-                    .body(DollDto.class);
+                    .body(DollOutputDto.class);
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));

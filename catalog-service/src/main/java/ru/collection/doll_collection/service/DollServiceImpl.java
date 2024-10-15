@@ -6,7 +6,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 import ru.collection.doll_collection.dto.DollDto;
 import ru.collection.doll_collection.dto.DollNewDto;
 import ru.collection.doll_collection.dto.DollUpdateDto;
@@ -14,6 +13,7 @@ import ru.collection.doll_collection.entity.Doll;
 import ru.collection.doll_collection.mapping_service.DollMapping;
 import ru.collection.doll_collection.repository.DollRepository;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -39,15 +39,14 @@ public class DollServiceImpl implements DollService {
 
     // Сохранение новой куклы
     @Transactional
+    @SneakyThrows
     @Override
     public DollDto createDoll(DollNewDto dollNewDto) {
         Doll doll = dollRepository.save(dollMapping.doolNewDtoToDoll(dollNewDto));
-        if (dollNewDto.getMyImage() != null) {
-            saveOnDisk(dollNewDto.getMyImage());
-        }
-        if (dollNewDto.getPromImage() != null) {
-            saveOnDisk(dollNewDto.getPromImage());
-        }
+        if (dollNewDto.getMyImage().length != 0)
+            imageService.upload(dollNewDto.getNameMyImage(), new ByteArrayInputStream(dollNewDto.getMyImage()));
+        if (dollNewDto.getPromImage().length != 0)
+            imageService.upload(dollNewDto.getNamePromImage(), new ByteArrayInputStream(dollNewDto.getPromImage()));
         log.info("Кукла сохранена. Присвоен id = {}", doll.getId());
         return dollMapping.doolToDollDto(doll);
     }
@@ -60,40 +59,25 @@ public class DollServiceImpl implements DollService {
     }
 
     @Transactional
+    @SneakyThrows
     @Override
     public DollDto updateDollById(Integer dollId, DollUpdateDto dollUpdateDto) {
         log.info("Вызов метода поиска куклы по id");
         Doll doll = findDollByIdAndReportOptional(dollId).get();
-        if (dollUpdateDto.getYear() != null) {
-            doll.setYear(dollUpdateDto.getYear());
-        }
-        if (dollUpdateDto.getBrand() != null) {
-            doll.setBrand(dollUpdateDto.getBrand());
-        }
-        if (dollUpdateDto.getRuler() != null) {
-            doll.setRuler(dollUpdateDto.getRuler());
-        }
-        if (dollUpdateDto.getSeries() != null) {
-            doll.setSeries(dollUpdateDto.getSeries());
-        }
-        if (dollUpdateDto.getNamePerson() != null) {
-            doll.setNamePerson(dollUpdateDto.getNamePerson());
-        }
-        if (dollUpdateDto.getDescription() != null) {
-            doll.setDescription(dollUpdateDto.getDescription());
-        }
-        if (dollUpdateDto.getPrice() != null) {
-            doll.setPrice(dollUpdateDto.getPrice());
-        }
+        if (dollUpdateDto.getYear() != null) doll.setYear(dollUpdateDto.getYear());
+        if (dollUpdateDto.getBrand() != null) doll.setBrand(dollUpdateDto.getBrand());
+        if (dollUpdateDto.getRuler() != null) doll.setRuler(dollUpdateDto.getRuler());
+        if (dollUpdateDto.getSeries() != null) doll.setSeries(dollUpdateDto.getSeries());
+        if (dollUpdateDto.getNamePerson() != null) doll.setNamePerson(dollUpdateDto.getNamePerson());
+        if (dollUpdateDto.getDescription() != null) doll.setDescription(dollUpdateDto.getDescription());
+        if (dollUpdateDto.getPrice() != null) doll.setPrice(dollUpdateDto.getPrice());
 
-        if (!dollUpdateDto.getMyImage().isEmpty()) {
-            saveOnDisk(dollUpdateDto.getMyImage());
-            doll.setMyImage(dollUpdateDto.getMyImage().getOriginalFilename());
-        }
-        if (!dollUpdateDto.getPromImage().isEmpty()) {
-            saveOnDisk(dollUpdateDto.getPromImage());
-            doll.setPromImage(dollUpdateDto.getPromImage().getOriginalFilename());
-        }
+        if (dollUpdateDto.getMyImage().length != 0)
+            imageService.upload(dollUpdateDto.getNameMyImage(),
+                    new ByteArrayInputStream(dollUpdateDto.getMyImage()));
+        if (dollUpdateDto.getPromImage().length != 0)
+            imageService.upload(dollUpdateDto.getNamePromImage(),
+                    new ByteArrayInputStream(dollUpdateDto.getPromImage()));
 
         Doll dollSave = dollRepository.save(doll);
         log.info("Данные куклы с id = {} успешно обновлены.", dollId);
@@ -117,13 +101,6 @@ public class DollServiceImpl implements DollService {
         } else {
             log.warn("Куклы с id = {} не найдена", dollId);
             throw new NoSuchElementException("Кукла с id = " + dollId + " не найдена");
-        }
-    }
-
-    @SneakyThrows
-    private void saveOnDisk(MultipartFile image) {
-        if (!image.isEmpty()) {
-            imageService.upload(image.getOriginalFilename(), image.getInputStream());
         }
     }
 
