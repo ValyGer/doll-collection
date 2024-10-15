@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.collection.doll_collection.client.DollUserClient;
+import ru.collection.doll_collection.service.DollUserService;
 
 import java.util.NoSuchElementException;
 
@@ -18,18 +18,19 @@ import java.util.NoSuchElementException;
 @RequestMapping("user/dolls")
 public class UserController {
 
-    private final DollUserClient dollUserClient;
+    private final DollUserService dollUserService;
 
+    // Получение всех кукол
     @GetMapping
     public String fineAllDolls(Model model) {
-        model.addAttribute("dolls", this.dollUserClient.getAllDolls());
+        model.addAttribute("dolls", this.dollUserService.getAllDolls());
         return "dolls/list_dolls_by_user";
     }
 
     // Получение страницы куклы
     @GetMapping("/{dollId:\\d+}")
     public String fineDollById(Model model, @PathVariable("dollId") Integer dollId) {
-        model.addAttribute("doll", this.dollUserClient.getDollById(dollId));
+        model.addAttribute("doll", this.dollUserService.getDollById(dollId));
         return "dolls/doll_by_user";
     }
 

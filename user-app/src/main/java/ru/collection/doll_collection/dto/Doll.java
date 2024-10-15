@@ -7,7 +7,8 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class DollDto {
+public class Doll {
+
     private Integer id;
     private Integer year;
     private String brand;
@@ -15,6 +16,7 @@ public class DollDto {
     private String series;
     private String namePerson;
     private String description;
+    private Long price;
     private String promImage;
     private String myImage;
 }
