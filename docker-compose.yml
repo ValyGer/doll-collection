@@ -1,0 +1,50 @@
+version: '3.1'
+services:
+  catalog-server:
+    build: catalog-service
+    image: catalog-service-image
+    restart: "on-failure"
+
+    container_name: catalog-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - dolls-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dolls-db:5432/doll_collection_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123456
+
+  dolls-db:
+    image: postgres:14-alpine
+    volumes:
+      - /data/dolls-db
+    container_name: dolls-db
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=doll_collection_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+
+  manager-app:
+    build: manager-app
+    image: manager-app-image
+    restart: "on-failure"
+
+    container_name: manager-app
+    ports:
+      - "8000:8000"
+    environment:
+      - CATALOG_SERVER_URL=http://catalog-server:8080
+
+  user-app:
+    build: user-app
+    image: user-app-image
+    restart: "on-failure"
+
+    container_name: user-app
+    ports:
+      - "8050:8050"
+    environment:
+      - CATALOG_SERVER_URL=http://catalog-server:8080
