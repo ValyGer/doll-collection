@@ -11,7 +11,7 @@ public class ClientBean {
     @Bean
     public DollUserClientImpl dollUserClient() {
         return new DollUserClientImpl(RestClient.builder()
-                .baseUrl("http://localhost:8050")
+                .baseUrl("http://localhost:8080")
                 .build());
     }
 

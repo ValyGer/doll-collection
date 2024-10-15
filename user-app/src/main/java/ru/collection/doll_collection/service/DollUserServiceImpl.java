@@ -20,6 +20,7 @@ public class DollUserServiceImpl implements DollUserService{
 
     @Override
     public List<DollDto> getAllDolls() {
+
         return dollUserClient.getAllDolls().stream().map(dollMapping::dollToDollDto).collect(Collectors.toList());
     }
 
