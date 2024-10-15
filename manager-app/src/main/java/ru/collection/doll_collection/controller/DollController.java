@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import ru.collection.doll_collection.client.BadRequestException;
 import ru.collection.doll_collection.client.DollManagerClient;
 import ru.collection.doll_collection.dto.DollInputDto;
 import ru.collection.doll_collection.dto.DollInputUpdateDto;
@@ -37,17 +38,16 @@ public class DollController {
 
     // Создание новой куклы и возврат на страницу куклы
     @PostMapping("/new")
-    public String createDoll(DollInputDto dollInputDto, BindingResult bindingResult, Model model) throws IOException {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("doll", dollInputDto);
-            model.addAttribute("errors", bindingResult.getAllErrors().stream()
-                    .map(ObjectError::getDefaultMessage)
-                    .toList());
-            return "dolls/new_doll";
-        } else {
+    public String createDoll(DollInputDto dollInputDto, Model model) throws IOException {
+        try {
             return "redirect:/dolls/%d".formatted(this.dollManagerClient.createDoll(dollInputDto).getId());
+        } catch (BadRequestException exception) {
+            model.addAttribute("doll", dollInputDto);
+            model.addAttribute("errors", exception.getErrors());
+            return "dolls/new_doll";
         }
     }
+
 
     // Получение страницы куклы
     @GetMapping("/{dollId:\\d+}")
@@ -65,18 +65,16 @@ public class DollController {
 
     // Изменение данных куклы
     @PostMapping("/{dollId:\\d+}/edit")
-    public String updateDollById(@PathVariable("dollId") Integer dollId, DollInputUpdateDto dollInputUpdateDto,
-                                 BindingResult bindingResult, Model model) throws IOException {
-        if (bindingResult.hasErrors()) {
-            dollInputUpdateDto.setId(dollId);
-            model.addAttribute("doll", dollInputUpdateDto);
-            model.addAttribute("errors", bindingResult.getAllErrors().stream()
-                    .map(ObjectError::getDefaultMessage)
-                    .toList());
-            return "dolls/edit_doll";
-        } else {
+    public String updateDollById(@PathVariable("dollId") Integer dollId, DollInputUpdateDto dollInputUpdateDto
+            , Model model) throws IOException {
+        try {
             this.dollManagerClient.updateDollById(dollId, dollInputUpdateDto);
             return "redirect:/dolls/%d".formatted(dollId);
+        } catch (BadRequestException exception) {
+            dollInputUpdateDto.setId(dollId);
+            model.addAttribute("doll", dollInputUpdateDto);
+            model.addAttribute("errors", exception.getErrors());
+            return "dolls/edit_doll";
         }
     }
 

@@ -61,9 +61,12 @@ public class DollInputDtoMapping implements DtoMapping {
 
     // Не самая красивая функция!
     private String stringConversion(String str) {
-        StringBuilder stringBuilder = new StringBuilder(str.trim().toLowerCase());
-        char firstChar = stringBuilder.charAt(0);
-        stringBuilder.replace(0, 1, Character.toString(firstChar).toUpperCase());
-        return stringBuilder.toString();
+        if (!(str == null) && (!str.isBlank())) {
+            StringBuilder stringBuilder = new StringBuilder(str.trim().toLowerCase());
+            char firstChar = stringBuilder.charAt(0);
+            stringBuilder.deleteCharAt(0);
+            return Character.toString(firstChar).toUpperCase() + stringBuilder.toString();
+        }
+        return str;
     }
 }

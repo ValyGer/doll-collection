@@ -1,5 +1,6 @@
 package ru.collection.doll_collection.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,6 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 public class DollNewDto {
     @NotNull(message = "Нужно ввести год, это обязательное поле")
+    @Min(value = 1900, message = "Думаю, у нас нет кукол выпущенных раньше 1900 года))")
     private Integer year;
     @NotBlank(message = "Нужно ввести бренд, это обязательное поле")
     @Size(max = 256, message = "Очень длинное название бренда")
@@ -26,6 +28,7 @@ public class DollNewDto {
     private String namePerson;
     @Size(max = 1024, message = "Давай сделаем описание поменьше")
     private String description;
+    @Min(value = 0, message = "Стоимость должна быть положительной")
     private Long price;
 
     private byte[] promImage;

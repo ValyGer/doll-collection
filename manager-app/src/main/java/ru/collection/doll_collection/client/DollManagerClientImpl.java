@@ -79,7 +79,7 @@ public class DollManagerClientImpl implements DollManagerClient {
                     .body(DollOutputDto.class);
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
-            throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
+            throw  new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
         }
     }
 
