@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class ImageServiceImpl implements ImageService {
-    @Value("./manager-app/src/main/resources/image")
+    @Value("./catalog-service/src/main/resources/image")
     private String bucket;
 
     @Override
@@ -20,7 +20,7 @@ public class ImageServiceImpl implements ImageService {
     public void upload(String imagePath, InputStream content) {
         Path fullImagePath = Path.of(bucket, imagePath);
 
-        try(content) {
+        try (content) {
             Files.createDirectories(fullImagePath.getParent());
             Files.write(fullImagePath, content.readAllBytes(),
                     StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
@@ -31,6 +31,6 @@ public class ImageServiceImpl implements ImageService {
     @SneakyThrows
     public Optional<byte[]> get(String imagePath) {
         Path fullPath = Path.of(bucket, imagePath);
-        return Files.exists(fullPath) ? Optional.of(Files.readAllBytes(fullPath)) :Optional.empty();
+        return Files.exists(fullPath) ? Optional.of(Files.readAllBytes(fullPath)) : Optional.empty();
     }
 }
