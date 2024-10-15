@@ -64,13 +64,25 @@ public class DollServiceImpl implements DollService {
     public DollDto updateDollById(Integer dollId, DollUpdateDto dollUpdateDto) {
         log.info("Вызов метода поиска куклы по id");
         Doll doll = findDollByIdAndReportOptional(dollId).get();
-        if (dollUpdateDto.getYear() != null) doll.setYear(dollUpdateDto.getYear());
-        if (dollUpdateDto.getBrand() != null) doll.setBrand(dollUpdateDto.getBrand());
-        if (dollUpdateDto.getRuler() != null) doll.setRuler(dollUpdateDto.getRuler());
-        if (dollUpdateDto.getSeries() != null) doll.setSeries(dollUpdateDto.getSeries());
-        if (dollUpdateDto.getNamePerson() != null) doll.setNamePerson(dollUpdateDto.getNamePerson());
-        if (dollUpdateDto.getDescription() != null) doll.setDescription(dollUpdateDto.getDescription());
-        if (dollUpdateDto.getPrice() != null) doll.setPrice(dollUpdateDto.getPrice());
+        if (dollUpdateDto.getYear() != null)
+            doll.setYear(dollUpdateDto.getYear());
+        if ((dollUpdateDto.getBrand() != null) && (!dollUpdateDto.getBrand().isBlank()))
+            doll.setBrand(dollUpdateDto.getBrand());
+        if ((dollUpdateDto.getRuler() != null) && (!dollUpdateDto.getRuler().isBlank()))
+            doll.setRuler(dollUpdateDto.getRuler());
+        if ((dollUpdateDto.getSeries() != null) && (!dollUpdateDto.getSeries().isBlank()))
+            doll.setSeries(dollUpdateDto.getSeries());
+        if ((dollUpdateDto.getNamePerson() != null) && (!dollUpdateDto.getNamePerson().isBlank()))
+            doll.setNamePerson(dollUpdateDto.getNamePerson());
+        if ((dollUpdateDto.getDescription() != null) && (!dollUpdateDto.getDescription().isBlank()))
+            doll.setDescription(dollUpdateDto.getDescription());
+        if ((dollUpdateDto.getPrice() != null) )
+            doll.setPrice(dollUpdateDto.getPrice());
+
+        if ((dollUpdateDto.getNameMyImage() != null) && (!dollUpdateDto.getNameMyImage().isBlank()))
+            doll.setMyImage(dollUpdateDto.getNameMyImage());
+        if ((dollUpdateDto.getNamePromImage() != null) && (!dollUpdateDto.getNamePromImage().isBlank()))
+            doll.setPromImage(dollUpdateDto.getNamePromImage());
 
         if (dollUpdateDto.getMyImage().length != 0)
             imageService.upload(dollUpdateDto.getNameMyImage(),
