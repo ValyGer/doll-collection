@@ -40,13 +40,31 @@ public class DollUserClientImpl implements DollUserClient {
         }
     }
 
+// Работа с картинкой
+
     @Override
     public byte[] findMyImage(Integer dollId) {
-        return new byte[0];
+        try {
+            return this.restClient
+                    .get()
+                    .uri("dolls/{dollId}/myImage", dollId)
+                    .retrieve()
+                    .body(byte[].class);
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NoSuchElementException(exception);
+        }
     }
 
     @Override
     public byte[] findPromImage(Integer dollId) {
-        return new byte[0];
+        try {
+            return this.restClient
+                    .get()
+                    .uri("dolls/{dollId}/promImage", dollId)
+                    .retrieve()
+                    .body(byte[].class);
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NoSuchElementException(exception);
+        }
     }
 }

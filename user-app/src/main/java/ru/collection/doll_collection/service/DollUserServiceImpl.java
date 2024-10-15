@@ -1,6 +1,7 @@
 package ru.collection.doll_collection.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import ru.collection.doll_collection.client.DollUserClient;
 import ru.collection.doll_collection.dto.DollDto;
@@ -23,6 +24,7 @@ public class DollUserServiceImpl implements DollUserService{
     }
 
     @Override
+    @SneakyThrows
     public DollDto getDollById(Integer dollId) {
             return dollMapping.dollToDollDto(dollUserClient.getDollById(dollId));
     }
