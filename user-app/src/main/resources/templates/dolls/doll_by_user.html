@@ -1,0 +1,44 @@
+<body><!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.crg">
+<head>
+    <meta charset="UTF-8">
+    <title>Кукла [[${doll.namePerson}]]</title>
+</head>
+<body>
+<a data-th-href="@{/user/dolls}">&larr; Вернуться к списку куколок</a>
+<h1 data-th-text="${doll.series}"></h1>
+<table>
+    <thead>
+    <tr>
+        <th>Моя куколка</th>
+        <th>Когда выходила</th>
+    </tr>
+    </thead>
+    <tbody>
+    <td>
+        <div th:if="${doll.myImage}">
+            <img width="140" th:src="@{{dollId}/myImage(dollId=${doll.id})}" alt="Doll myImage">
+        </div>
+    </td>
+    <td>
+        <div th:if="${doll.promImage}">
+            <img width="140" th:src="@{{dollId}/promImage(dollId=${doll.id})}" alt="Doll promImage">
+        </div>
+    </td>
+    </tbody>
+</table>
+<br>
+<ul>
+    <li><strong>Год выпуска куклы</strong>: <span data-th-text="${doll.year}"></span></li>
+    <li><strong>Наименование бренда</strong>: <span data-th-text="${doll.brand}"></span></li>
+    <li><strong>Наименование линейки</strong>: <span data-th-text="${doll.ruler}"></span></li>
+    <li><strong>Наименование серии</strong>: <span data-th-text="${doll.series}"></span></li>
+    <li><strong>Наименование персонажа</strong>: <span data-th-text="${doll.namePerson}"></span></li>
+    <li><strong>Описание</strong>: <span data-th-text="${doll.description}"></span></li>
+</ul>
+
+<form method="post" data-th-action="@{/logout}">
+    <button type="submit">Выйти</button>
+</form>
+</body>
+</html>
