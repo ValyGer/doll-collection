@@ -5,6 +5,7 @@
     <title>Все куклы</title>
 </head>
 <body>
+<a data-th-href="@{http://localhost:8083/users}">+ Панель управления пользователями</a><br>
 <a data-th-href="@{/dolls/new}">+ Добавляем новую куколку :)))</a><br>
     <h1>Коллекция кукол Алины</h1>
     <table>
@@ -49,11 +50,29 @@
         </tbody>
     </table>
 <br>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Общая стоимость коллекции на данный момент: </td>
+                <td data-th-text="${sum}"></td>
+                <td> рублей</td>
+            </tr>
+        </tbody>
+    </table>
+
+<br>
 <form method="post" data-th-action="@{dolls/createResponse}">
     <button type="submit">Отправить отчет БД на почту</button>
 </form>
 <br>
-<form method="post" data-th-action="@{/logout}">
+<form method="post" data-th-action="@{http://localhost:8083/logout}">
     <button type="submit">Выйти</button>
 </form>
 </body>

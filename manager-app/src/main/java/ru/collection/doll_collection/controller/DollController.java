@@ -8,10 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.collection.doll_collection.client.BadRequestException;
 import ru.collection.doll_collection.client.DollManagerClient;
+import ru.collection.doll_collection.service.DollSumService;
 import ru.collection.doll_collection.dto.DollInputDto;
 import ru.collection.doll_collection.dto.DollInputUpdateDto;
+import ru.collection.doll_collection.dto.DollOutputDto;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -20,11 +23,14 @@ import java.util.NoSuchElementException;
 public class DollController {
 
     private final DollManagerClient dollManagerClient;
+    private final DollSumService dollSumService;
 
     // Получение страницы списка всех кукол
     @GetMapping
     public String fineAllDolls(Model model) {
+        List<DollOutputDto> allDolls = this.dollManagerClient.getAllDolls();
         model.addAttribute("dolls", this.dollManagerClient.getAllDolls());
+        model.addAttribute("sum" , this.dollSumService.getSumAllDolls(allDolls));
         return "dolls/list_dolls";
     }
 
