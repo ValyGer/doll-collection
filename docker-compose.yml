@@ -34,7 +34,7 @@ services:
 
     container_name: manager-app
     ports:
-      - "8000:8000"
+      - "8081:8081"
     environment:
       - CATALOG_SERVER_URL=http://catalog-server:8080
 
@@ -45,6 +45,6 @@ services:
 
     container_name: user-app
     ports:
-      - "8050:8050"
+      - "8082:8082"
     environment:
       - CATALOG_SERVER_URL=http://catalog-server:8080
