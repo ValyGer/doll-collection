@@ -14,7 +14,8 @@
         <module>manager-app</module>
 		<module>catalog-service</module>
         <module>user-app</module>
-    </modules>
+		<module>security-service</module>
+	</modules>
 
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
