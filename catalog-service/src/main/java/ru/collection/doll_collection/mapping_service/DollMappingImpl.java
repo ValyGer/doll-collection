@@ -20,8 +20,17 @@ public class DollMappingImpl implements DollMapping {
         dollDto.setDescription(doll.getDescription());
         dollDto.setPrice(doll.getPrice());
 
-        dollDto.setPromImage(doll.getPromImage());
-        dollDto.setMyImage(doll.getMyImage());
+        if (doll.getPromImage().isBlank()) {
+            dollDto.setPromImage(null);
+        } else {
+            dollDto.setPromImage(doll.getPromImage());
+        }
+
+        if (doll.getMyImage().isBlank()) {
+            dollDto.setMyImage(null);
+        } else {
+            dollDto.setMyImage(doll.getMyImage());
+        }
         return dollDto;
     }
 

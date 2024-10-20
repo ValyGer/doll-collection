@@ -6,6 +6,7 @@ import ru.collection.doll_collection.dto.DollOutputDto;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public interface DollManagerClient {
 
@@ -21,9 +22,9 @@ public interface DollManagerClient {
 
 
     // методы обработки картинок
-    byte[] findMyImage(Integer dollId);
+    Optional<byte[]> findMyImage(Integer dollId);
 
-    byte[] findPromImage(Integer dollId);
+    Optional<byte[]> findPromImage(Integer dollId);
 
     // метод для получения данных для записи файла
     void createDataFile();

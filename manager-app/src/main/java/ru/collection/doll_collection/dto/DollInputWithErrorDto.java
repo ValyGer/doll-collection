@@ -1,15 +1,14 @@
 package ru.collection.doll_collection.dto;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
-
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class DollInputDto {
+public class DollInputWithErrorDto {
+    private Integer id;
     private String year;
     private String brand;
     private String ruler;
@@ -17,6 +16,6 @@ public class DollInputDto {
     private String namePerson;
     private String description;
     private String price;
-    private MultipartFile promImage;
-    private MultipartFile myImage;
+    private String promImage;
+    private String myImage;
 }

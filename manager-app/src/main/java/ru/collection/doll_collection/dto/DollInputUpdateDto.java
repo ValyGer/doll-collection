@@ -10,13 +10,13 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class DollInputUpdateDto {
     private Integer id;
-    private Integer year;
+    private String year;
     private String brand;
     private String ruler;
     private String series;
     private String namePerson;
     private String description;
-    private Long price;
+    private String price;
     private MultipartFile promImage;
     private MultipartFile myImage;
 }

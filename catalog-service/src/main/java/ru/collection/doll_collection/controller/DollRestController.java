@@ -21,6 +21,7 @@ import ru.collection.doll_collection.service.DollService;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -97,22 +98,26 @@ public class DollRestController {
     // Работа с картинкой
     @GetMapping(value = "/{dollId}/myImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findMyImage(@PathVariable("dollId") Integer dollId) {
-        return dollService.findMyImage(dollId).orElseThrow(RuntimeException::new);
+        Optional<byte[]> optional = dollService.findMyImage(dollId);
+        return optional.orElseGet(() -> new byte[0]);
     }
 
     @GetMapping(value = "/{dollId}/update/myImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findMyImageForUpdate(@PathVariable("dollId") Integer dollId) {
-        return dollService.findMyImage(dollId).orElseThrow(RuntimeException::new);
+        Optional<byte[]> optional = dollService.findMyImage(dollId);
+        return optional.orElseGet(() -> new byte[0]);
     }
 
     @GetMapping(value = "/{dollId}/promImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findPromImage(@PathVariable("dollId") Integer dollId) {
-        return dollService.findPromImage(dollId).orElseThrow(RuntimeException::new);
+        Optional<byte[]> optional = dollService.findPromImage(dollId);
+        return optional.orElseGet(() -> new byte[0]);
     }
 
     @GetMapping(value = "/{dollId}/update/promImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findPromImageForUpdate(@PathVariable("dollId") Integer dollId) {
-        return dollService.findPromImage(dollId).orElseThrow(RuntimeException::new);
+        Optional<byte[]> optional = dollService.findPromImage(dollId);
+        return optional.orElseGet(() -> new byte[0]);
     }
 
     // Создание и генерация отчета
@@ -122,4 +127,3 @@ public class DollRestController {
         emailService.sendEmailWithFile();
     }
 }
-

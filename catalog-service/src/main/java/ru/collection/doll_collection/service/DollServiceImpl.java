@@ -121,12 +121,14 @@ public class DollServiceImpl implements DollService {
 
     @Override
     public Optional<byte[]> findMyImage(Integer dollId) {
-        return findDollByIdAndReportOptional(dollId).map(Doll::getMyImage).filter(StringUtils::hasText).flatMap(imageService::get);
+        return findDollByIdAndReportOptional(dollId).map(Doll::getMyImage)
+                .filter(StringUtils::hasText).flatMap(imageService::get);
     }
 
     @Override
     public Optional<byte[]> findPromImage(Integer dollId) {
-        return findDollByIdAndReportOptional(dollId).map(Doll::getPromImage).filter(StringUtils::hasText).flatMap(imageService::get);
+        return findDollByIdAndReportOptional(dollId).map(Doll::getPromImage)
+                .filter(StringUtils::hasText).flatMap(imageService::get);
     }
 
     //-----------------------------------------------------------------------------------------------------------------

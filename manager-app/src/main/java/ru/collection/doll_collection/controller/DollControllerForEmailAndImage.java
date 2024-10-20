@@ -18,21 +18,21 @@ public class DollControllerForEmailAndImage {
     // Работа с картинкой
     @GetMapping(value = "/{dollId}/myImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findMyImage(@PathVariable("dollId") Integer dollId) {
-        return dollManagerClient.findMyImage(dollId);
+        return dollManagerClient.findMyImage(dollId).orElseThrow(RuntimeException::new);
     }
 
     @GetMapping(value = "/{dollId}/update/myImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findMyImageForUpdate(@PathVariable("dollId") Integer dollId) {
-        return dollManagerClient.findMyImage(dollId);
+        return dollManagerClient.findMyImage(dollId).orElseThrow(RuntimeException::new);
     }
 
     @GetMapping(value = "/{dollId}/promImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findPromImage(@PathVariable("dollId") Integer dollId) {
-        return dollManagerClient.findPromImage(dollId);
+        return dollManagerClient.findPromImage(dollId).orElseThrow(RuntimeException::new);
     }
 
     @GetMapping(value = "/{dollId}/update/promImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findPromImageForUpdate(@PathVariable("dollId") Integer dollId) {
-        return dollManagerClient.findPromImage(dollId);
+        return dollManagerClient.findPromImage(dollId).orElseThrow(RuntimeException::new);
     }
 }

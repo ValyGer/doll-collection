@@ -7,7 +7,7 @@
 <a data-th-href="@{/dolls/{dollId}(dollId=${doll.id})}">&larr; Обратно к кукле</a>
     <h1>Редактирование куклы [[${doll.namePerson}]]</h1>
     <div style="color:red" data-th-if="${errors}">
-        <h3>Допущены ошибки при вводе данных</h3>
+        <h3>Допущены ошибки при вводе данных, картинки надо перезагрузить((</h3>
         <ul>
             <li data-th-each="error:${errors}" data-th-text="${error}"></li>
         </ul>

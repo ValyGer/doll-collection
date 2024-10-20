@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DollOutputDto {
-
     private Integer id;
     private Integer year;
     private String brand;

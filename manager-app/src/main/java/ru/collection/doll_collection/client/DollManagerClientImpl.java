@@ -16,11 +16,16 @@ import ru.collection.doll_collection.mapping_service.DtoMapping;
 import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DollManagerClientImpl implements DollManagerClient {
 
     private static final ParameterizedTypeReference<List<DollOutputDto>> PARAMETERIZED_TYPE_REFERENCE =
+            new ParameterizedTypeReference<>() {
+            };
+
+    private static final ParameterizedTypeReference<Optional<byte[]>> PARAMETERIZED_BYTE =
             new ParameterizedTypeReference<>() {
             };
 
@@ -79,7 +84,7 @@ public class DollManagerClientImpl implements DollManagerClient {
                     .body(DollOutputDto.class);
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
-            throw  new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
+            throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
         }
     }
 
@@ -100,26 +105,22 @@ public class DollManagerClientImpl implements DollManagerClient {
 // Работа с картинкой
 
     @Override
-    public byte[] findMyImage(Integer dollId) {
-        try {
-            return this.restClient
-                    .get()
-                    .uri("dolls/{dollId}/myImage", dollId)
-                    .retrieve()
-                    .body(byte[].class);
-        } catch (HttpClientErrorException.NotFound exception) {
-            throw new NoSuchElementException(exception);
-        }
+    public Optional<byte[]> findMyImage(Integer dollId) {
+        return Optional.ofNullable(this.restClient
+                .get()
+                .uri("dolls/{dollId}/myImage", dollId)
+                .retrieve()
+                .body(byte[].class));
     }
 
     @Override
-    public byte[] findPromImage(Integer dollId) {
+    public Optional<byte[]> findPromImage(Integer dollId) {
         try {
-            return this.restClient
+            return Optional.ofNullable(this.restClient
                     .get()
                     .uri("dolls/{dollId}/promImage", dollId)
                     .retrieve()
-                    .body(byte[].class);
+                    .body(byte[].class));
         } catch (HttpClientErrorException.NotFound exception) {
             throw new NoSuchElementException(exception);
         }

@@ -1,11 +1,13 @@
 package ru.collection.doll_collection.mapping_service;
 
-import ru.collection.doll_collection.dto.DollInputDto;
-import ru.collection.doll_collection.dto.DollInputUpdateDto;
-import ru.collection.doll_collection.dto.DollRequestClient;
+import org.springframework.stereotype.Component;
+import ru.collection.doll_collection.client.BadRequestException;
+import ru.collection.doll_collection.dto.*;
 
 import java.io.IOException;
+import java.util.Collections;
 
+@Component
 public class DollInputDtoMapping implements DtoMapping {
 
     public DollRequestClient dollInputToDollRequestClient(DollInputDto dollInputDto) throws IOException {
@@ -19,13 +21,13 @@ public class DollInputDtoMapping implements DtoMapping {
         }
 
         return new DollRequestClient(
-                dollInputDto.getYear(),
+                сheckAndConvertStringToInt(dollInputDto.getYear()),
                 stringConversion(dollInputDto.getBrand()),
                 stringConversion(dollInputDto.getRuler()),
                 stringConversion(dollInputDto.getSeries()),
                 stringConversion(dollInputDto.getNamePerson()),
                 stringConversion(dollInputDto.getDescription()),
-                dollInputDto.getPrice(),
+                сheckAndConvertStringToLong(dollInputDto.getPrice()),
                 myImage,
                 dollInputDto.getMyImage().getOriginalFilename(),
                 prodImage,
@@ -44,19 +46,60 @@ public class DollInputDtoMapping implements DtoMapping {
             prodImage = dollInputUpdateDto.getPromImage().getBytes();
         }
 
+        String nameMyImage = null;
+        if (!dollInputUpdateDto.getMyImage().getName().isBlank()) {
+            nameMyImage = dollInputUpdateDto.getMyImage().getOriginalFilename();
+        }
+
+        String namePromImage = null;
+        if (!dollInputUpdateDto.getPromImage().getName().isBlank()) {
+            namePromImage = dollInputUpdateDto.getPromImage().getOriginalFilename();
+        }
+
         return new DollRequestClient(
-                dollInputUpdateDto.getYear(),
+                сheckAndConvertStringToInt(dollInputUpdateDto.getYear()),
                 stringConversion(dollInputUpdateDto.getBrand()),
                 stringConversion(dollInputUpdateDto.getRuler()),
                 stringConversion(dollInputUpdateDto.getSeries()),
                 stringConversion(dollInputUpdateDto.getNamePerson()),
                 stringConversion(dollInputUpdateDto.getDescription()),
-                dollInputUpdateDto.getPrice(),
+                сheckAndConvertStringToLong(dollInputUpdateDto.getPrice()),
                 myImage,
-                dollInputUpdateDto.getMyImage().getOriginalFilename(),
+                nameMyImage,
                 prodImage,
-                dollInputUpdateDto.getPromImage().getOriginalFilename()
+                namePromImage
         );
+    }
+
+    @Override
+    public DollInputWithErrorDto dollInputToDollInputWithError(DollOutputDto dollOutputDto, DollInputUpdateDto dollInputUpdateDto) {
+        DollInputWithErrorDto dollInputWithErrorDto = new DollInputWithErrorDto();
+        dollInputWithErrorDto.setId(dollOutputDto.getId());
+        dollInputWithErrorDto.setYear(!dollOutputDto.getYear().toString().equals(dollInputUpdateDto.getYear())
+                ? dollInputUpdateDto.getYear() : dollOutputDto.getYear().toString());
+
+        if (!dollOutputDto.getBrand().equals(dollInputUpdateDto.getBrand()))
+            dollInputWithErrorDto.setBrand(dollInputUpdateDto.getBrand());
+        else dollInputWithErrorDto.setBrand(dollOutputDto.getBrand());
+
+        dollInputWithErrorDto.setRuler(!dollOutputDto.getRuler().equals(dollInputUpdateDto.getRuler())
+                ? dollInputUpdateDto.getRuler() : dollOutputDto.getRuler());
+
+        dollInputWithErrorDto.setSeries(!dollOutputDto.getSeries().equals(dollInputUpdateDto.getSeries())
+                ? dollInputUpdateDto.getSeries() : dollOutputDto.getSeries());
+
+        dollInputWithErrorDto.setNamePerson(!dollOutputDto.getNamePerson().equals(dollInputUpdateDto.getNamePerson())
+                ? dollInputUpdateDto.getNamePerson() : dollOutputDto.getNamePerson());
+
+        dollInputWithErrorDto.setDescription(!dollOutputDto.getDescription().equals(dollInputUpdateDto.getDescription())
+                ? dollInputUpdateDto.getDescription() : dollOutputDto.getDescription());
+
+        dollInputWithErrorDto.setPrice(!dollOutputDto.getPrice().toString().equals(dollInputUpdateDto.getPrice())
+                ? dollInputUpdateDto.getPrice() : dollOutputDto.getPrice().toString());
+
+        dollInputWithErrorDto.setMyImage(dollOutputDto.getMyImage() == null ? null : dollOutputDto.getMyImage());
+        dollInputWithErrorDto.setPromImage(dollOutputDto.getPromImage() == null ? null : dollOutputDto.getPromImage());
+        return dollInputWithErrorDto;
     }
 
     // Не самая красивая функция!
@@ -68,5 +111,21 @@ public class DollInputDtoMapping implements DtoMapping {
             return Character.toString(firstChar).toUpperCase() + stringBuilder.toString();
         }
         return str;
+    }
+
+    private Integer сheckAndConvertStringToInt(String strYear) {
+        try {
+            return Integer.parseInt(strYear.trim());
+        } catch (IllegalArgumentException exception) {
+            throw new BadRequestException(Collections.singletonList("В поле год надо ввести число"));
+        }
+    }
+
+    private Long сheckAndConvertStringToLong(String strYear) {
+        try {
+            return Long.parseLong(strYear.trim());
+        } catch (IllegalArgumentException exception) {
+            throw new BadRequestException(Collections.singletonList("В поле цена надо ввести число"));
+        }
     }
 }
