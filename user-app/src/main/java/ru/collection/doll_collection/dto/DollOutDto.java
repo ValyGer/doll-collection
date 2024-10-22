@@ -15,6 +15,6 @@ public class DollOutDto {
     private String series;
     private String namePerson;
     private String description;
-    private String promImage;
     private String myImage;
+    private String promImage;
 }

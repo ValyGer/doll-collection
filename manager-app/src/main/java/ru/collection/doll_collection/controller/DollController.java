@@ -92,7 +92,7 @@ public class DollController {
         return "redirect:/dolls";
     }
 
-    // Обработка ошибки товар не найден
+    // Обработка ошибки кукла не найдена
     @ExceptionHandler(NoSuchElementException.class)
     public String handleNoSuchElementException(NoSuchElementException exception, Model model,
                                                HttpServletResponse response) {

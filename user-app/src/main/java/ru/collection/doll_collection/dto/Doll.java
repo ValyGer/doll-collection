@@ -16,6 +16,6 @@ public class Doll {
     private String namePerson;
     private String description;
     private Long price;
-    private String promImage;
     private String myImage;
+    private String promImage;
 }

@@ -34,7 +34,7 @@ public class UserController {
         return "dolls/doll_by_user";
     }
 
-    // Обработка ошибки товар не найден
+    // Обработка ошибки кукла не найдена
     @ExceptionHandler(NoSuchElementException.class)
     public String handleNoSuchElementException(NoSuchElementException exception, Model model,
                                                HttpServletResponse response) {
