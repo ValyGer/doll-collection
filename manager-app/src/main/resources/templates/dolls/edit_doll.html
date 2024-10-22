@@ -23,12 +23,12 @@
     <tbody>
     <td>
         <div th:if="${doll.promImage}">
-            <img width="140" th:src="@{{dollId}/promImage(dollId=${doll.id})}" alt="Doll promImage">
+            <img width="140" th:src="@{/dolls/{dollId}/promImage(dollId=${doll.id})}" alt="Doll promImage">
         </div>
     </td>
     <td>
         <div th:if="${doll.myImage}">
-            <img width="140" th:src="@{{dollId}/myImage(dollId=${doll.id})}" alt="Doll myImage">
+            <img width="140" th:src="@{/dolls/{dollId}/myImage(dollId=${doll.id})}" alt="Doll myImage">
         </div>
     </td>
     </tbody>
