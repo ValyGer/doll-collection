@@ -3,6 +3,7 @@ package ru.collection.doll_collection.reportService.fileService;
 import com.opencsv.CSVWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.collection.doll_collection.entity.Doll;
 import ru.collection.doll_collection.service.DollService;
@@ -20,9 +21,12 @@ public class FileGeneratorImpl implements FileGenerator {
 
     private final DollService dollService;
 
+    @Autowired
+    private String addressFile;
+
     @Override
     public void writeDataToFile() {
-        File file = new File("./catalog-service/src/main/resources/data/data_db.csv");
+        File file = new File(addressFile + "data_db.csv");
         log.info("Создан файл с отчетом");
         try {
             FileWriter outputFile = new FileWriter(file);

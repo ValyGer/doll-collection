@@ -1,5 +1,6 @@
 package ru.collection.doll_collection.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
@@ -10,13 +11,14 @@ import ru.collection.doll_collection.client.DollUserClientImpl;
 public class ClientBean {
 
     @Bean
-    public DollUserClientImpl dollUserClient() {
-        String serviceUserName = "catalog-service-user";
-        String serviceUserPassword = "Y2F0YWxvZy1zZXJ2aWNlLXVzZXI6cGFzc3dvcmQ=";
+    public DollUserClientImpl dollUserClient(
+            @Value("${catalog_service}") String serviceUserName,
+            @Value("${catalog_service_token}") String serviceUserPassword,
+            @Value("${catalog_service_url}") String url
+    ) {
         return new DollUserClientImpl(RestClient.builder()
-                .baseUrl("http://localhost:8080")
+                .baseUrl(url)
                 .requestInterceptor(new BasicAuthenticationInterceptor(serviceUserName, serviceUserPassword))
                 .build());
     }
-
 }
