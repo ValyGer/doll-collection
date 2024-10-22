@@ -18,12 +18,12 @@ public class UserControllerImage {
     // Работа с картинкой
     @GetMapping(value = "/{dollId}/myImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findMyImage(@PathVariable("dollId") Integer dollId) {
-        return dollUserClient.findMyImage(dollId);
+        return dollUserClient.findMyImage(dollId).orElseThrow(RuntimeException::new);
     }
 
     @GetMapping(value = "/{dollId}/promImage", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] findPromImage(@PathVariable("dollId") Integer dollId) {
-        return dollUserClient.findPromImage(dollId);
+        return dollUserClient.findPromImage(dollId).orElseThrow(RuntimeException::new);
     }
 }
 

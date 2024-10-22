@@ -25,10 +25,6 @@ public class DollManagerClientImpl implements DollManagerClient {
             new ParameterizedTypeReference<>() {
             };
 
-    private static final ParameterizedTypeReference<Optional<byte[]>> PARAMETERIZED_BYTE =
-            new ParameterizedTypeReference<>() {
-            };
-
     private final RestClient restClient;
     private final DtoMapping dtoMapping;
 
@@ -115,15 +111,11 @@ public class DollManagerClientImpl implements DollManagerClient {
 
     @Override
     public Optional<byte[]> findPromImage(Integer dollId) {
-        try {
             return Optional.ofNullable(this.restClient
                     .get()
                     .uri("dolls/{dollId}/promImage", dollId)
                     .retrieve()
                     .body(byte[].class));
-        } catch (HttpClientErrorException.NotFound exception) {
-            throw new NoSuchElementException(exception);
-        }
     }
 
     @Override

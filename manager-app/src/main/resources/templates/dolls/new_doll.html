@@ -9,6 +9,7 @@
     <h1>Добавляем новую куклу :))</h1>
     <div style="color:red" data-th-if="${errors}">
         <h3>Допущены ошибки при вводе данных</h3>
+        <h3>Не забудь добавить картинки заново(</h3>
         <ul>
             <li data-th-each="error:${errors}" data-th-text="${error}"></li>
         </ul>
@@ -42,16 +43,20 @@
             Стоимость в рублях:<br>
             <input type="text" name="price" data-th-value="${doll?.price}">
         </label><br>
+        <br>
         <label>
             Картинка моя:<br>
             <input type="file" name="myImage">
         </label><br>
+        <br>
         <label>
             Картинка промо:<br>
             <input type="file" name="promImage">
         </label><br>
+        <br>
         <button type="submit">Добавляем)))</button>
     </form>
+<br>
 <form method="post" data-th-action="@{http://localhost:8083/logout}">
     <button type="submit">Выйти</button>
 </form>

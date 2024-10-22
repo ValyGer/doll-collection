@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class DollDto {
+public class DollOutDto {
     private Integer id;
     private Integer year;
     private String brand;

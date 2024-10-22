@@ -8,6 +8,7 @@ import ru.collection.doll_collection.dto.Doll;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DollUserClientImpl implements DollUserClient {
@@ -43,28 +44,20 @@ public class DollUserClientImpl implements DollUserClient {
 // Работа с картинкой
 
     @Override
-    public byte[] findMyImage(Integer dollId) {
-        try {
-            return this.restClient
-                    .get()
-                    .uri("dolls/{dollId}/myImage", dollId)
-                    .retrieve()
-                    .body(byte[].class);
-        } catch (HttpClientErrorException.NotFound exception) {
-            throw new NoSuchElementException(exception);
-        }
+    public Optional<byte[]> findMyImage(Integer dollId) {
+        return Optional.ofNullable(this.restClient
+                .get()
+                .uri("dolls/{dollId}/myImage", dollId)
+                .retrieve()
+                .body(byte[].class));
     }
 
     @Override
-    public byte[] findPromImage(Integer dollId) {
-        try {
-            return this.restClient
-                    .get()
-                    .uri("dolls/{dollId}/promImage", dollId)
-                    .retrieve()
-                    .body(byte[].class);
-        } catch (HttpClientErrorException.NotFound exception) {
-            throw new NoSuchElementException(exception);
-        }
+    public Optional<byte[]> findPromImage(Integer dollId) {
+        return Optional.ofNullable(this.restClient
+                .get()
+                .uri("dolls/{dollId}/promImage", dollId)
+                .retrieve()
+                .body(byte[].class));
     }
 }

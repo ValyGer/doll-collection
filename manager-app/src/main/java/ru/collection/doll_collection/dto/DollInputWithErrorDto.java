@@ -16,6 +16,6 @@ public class DollInputWithErrorDto {
     private String namePerson;
     private String description;
     private String price;
-    private String promImage;
     private String myImage;
+    private String promImage;
 }

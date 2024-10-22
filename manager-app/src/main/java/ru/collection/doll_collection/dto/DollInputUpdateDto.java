@@ -17,6 +17,6 @@ public class DollInputUpdateDto {
     private String namePerson;
     private String description;
     private String price;
-    private MultipartFile promImage;
     private MultipartFile myImage;
+    private MultipartFile promImage;
 }

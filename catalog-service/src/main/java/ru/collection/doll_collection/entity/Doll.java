@@ -23,8 +23,9 @@ public class Doll {
     private String namePerson;
     private String description;
     private Long price;
-    @Column(name = "prom_image")
-    private String promImage;
     @Column(name = "my_image")
     private String myImage;
+    @Column(name = "prom_image")
+    private String promImage;
+
 }

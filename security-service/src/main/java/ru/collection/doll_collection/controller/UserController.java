@@ -68,4 +68,11 @@ public class UserController {
         this.userService.deleteUserById(userId);
         return "redirect:/users";
     }
+
+    // Просмотр пользователя админом
+    @GetMapping("/admin/{userId:\\d+}")
+    public String getUserByIdForAdmin(Model model, @PathVariable("userId") Long userId) {
+        model.addAttribute("user", this.userService.findUserById(userId));
+        return "users/user_admin";
+    }
 }

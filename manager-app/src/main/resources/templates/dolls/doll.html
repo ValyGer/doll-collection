@@ -10,19 +10,19 @@
 <table>
     <thead>
     <tr>
-        <th>Вид у меня</th>
         <th>Вид промо</th>
+        <th>Вид у меня</th>
     </tr>
     </thead>
     <tbody>
         <td>
-            <div th:if="${doll.myImage}">
-                <img width="140" th:src="@{{dollId}/myImage(dollId=${doll.id})}" alt="Doll myImage">
+            <div th:if="${doll.promImage}">
+                <img width="140" th:src="@{{dollId}/promImage(dollId=${doll.id})}" alt="Doll promImage">
             </div>
         </td>
         <td>
-            <div th:if="${doll.promImage}">
-                <img width="140" th:src="@{{dollId}/promImage(dollId=${doll.id})}" alt="Doll promImage">
+            <div th:if="${doll.myImage}">
+                <img width="140" th:src="@{{dollId}/myImage(dollId=${doll.id})}" alt="Doll myImage">
             </div>
         </td>
     </tbody>

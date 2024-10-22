@@ -32,8 +32,8 @@ public class DollUpdateDto {
     @Min(value = 0, message = "Стоимость должна быть положительной")
     private Long price;
 
-    private byte[] promImage;
-    private String namePromImage;
     private byte[] myImage;
     private String nameMyImage;
+    private byte[] promImage;
+    private String namePromImage;
 }
