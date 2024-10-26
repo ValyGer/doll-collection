@@ -15,6 +15,7 @@
 		<module>catalog-service</module>
         <module>user-app</module>
 		<module>security-service</module>
+		<module>eureka-server</module>
 	</modules>
 
 	<properties>
