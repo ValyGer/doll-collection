@@ -2,7 +2,7 @@ package ru.collection.doll_collection.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.collection.doll_collection.dto.DollOutputDto;
+import ru.collection.doll_collection.dto.doll.DollOutputDto;
 
 import java.util.List;
 

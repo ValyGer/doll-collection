@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.collection.doll_collection.client.BadRequestException;
 import ru.collection.doll_collection.client.DollManagerClient;
-import ru.collection.doll_collection.dto.DollInputDto;
-import ru.collection.doll_collection.dto.DollInputUpdateDto;
-import ru.collection.doll_collection.dto.DollOutputDto;
+import ru.collection.doll_collection.dto.doll.DollInputDto;
+import ru.collection.doll_collection.dto.doll.DollInputUpdateDto;
+import ru.collection.doll_collection.dto.doll.DollOutputDto;
 import ru.collection.doll_collection.mapping_service.DtoMapping;
 import ru.collection.doll_collection.service.DollSumService;
 
@@ -99,6 +99,15 @@ public class DollController {
         response.setStatus(HttpStatus.NOT_FOUND.value());
         model.addAttribute("error", exception.getMessage());
         return "errors/404";
+    }
+
+    // Обработка ошибки 500
+    @ExceptionHandler(Throwable.class)
+    public String handleNoSuchElementException(Throwable exception, Model model,
+                                               HttpServletResponse response) {
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        model.addAttribute("error", exception.getMessage());
+        return "templates/errors/500";
     }
 
     // Создание и генерация отчета

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
-import ru.collection.doll_collection.dto.Doll;
+import ru.collection.doll_collection.dto.doll.Doll;
 
 import java.util.List;
 import java.util.NoSuchElementException;

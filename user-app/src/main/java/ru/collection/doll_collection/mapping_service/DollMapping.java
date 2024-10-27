@@ -1,7 +1,7 @@
 package ru.collection.doll_collection.mapping_service;
 
-import ru.collection.doll_collection.dto.Doll;
-import ru.collection.doll_collection.dto.DollOutDto;
+import ru.collection.doll_collection.dto.doll.Doll;
+import ru.collection.doll_collection.dto.doll.DollOutDto;
 
 public interface DollMapping {
 

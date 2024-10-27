@@ -1,6 +1,6 @@
 package ru.collection.doll_collection.client;
 
-import ru.collection.doll_collection.dto.Doll;
+import ru.collection.doll_collection.dto.doll.Doll;
 
 import java.util.List;
 import java.util.Optional;

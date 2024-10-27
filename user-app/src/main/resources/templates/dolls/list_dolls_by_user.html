@@ -5,6 +5,7 @@
     <title>Все куклы</title>
 </head>
 <body>
+<a data-th-href="@{/users/{userId}(userId=${user})}">&larr; На страницу пользователя</a><br>
 <h1>Коллекция кукол Алины</h1>
 <table>
     <thead>
@@ -38,7 +39,7 @@
     </tbody>
 </table>
 <br>
-<form method="post" data-th-action="@{http://localhost:8083/logout}">
+<form method="post" data-th-action="@{/logout}">
     <button type="submit">Выйти</button>
 </form>
 </body>
