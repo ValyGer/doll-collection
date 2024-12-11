@@ -49,3 +49,8 @@ services:
       - "8082:8082"
     environment:
       - CATALOG_SERVER_URL=http://catalog-server:8080
+
+networks:
+  services-network-01:
+    name: services-network-01
+    driver: bridge
