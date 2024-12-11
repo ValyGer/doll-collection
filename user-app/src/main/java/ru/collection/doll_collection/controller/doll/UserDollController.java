@@ -27,7 +27,6 @@ public class UserDollController {
     @GetMapping
     public String fineAllDolls(Model model, Model modelUser, Principal principal) {
         System.out.println(principal);
-
         model.addAttribute("dolls", this.dollUserService.getAllDolls());
         modelUser.addAttribute("user", userService.findUserByName(principal.getName()));
         return "dolls/list_dolls_by_user";
