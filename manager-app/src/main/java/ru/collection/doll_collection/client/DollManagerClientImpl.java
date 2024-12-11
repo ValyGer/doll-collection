@@ -7,10 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
-import ru.collection.doll_collection.dto.DollInputDto;
-import ru.collection.doll_collection.dto.DollInputUpdateDto;
-import ru.collection.doll_collection.dto.DollOutputDto;
-import ru.collection.doll_collection.dto.DollRequestClient;
+import ru.collection.doll_collection.dto.doll.DollInputDto;
+import ru.collection.doll_collection.dto.doll.DollInputUpdateDto;
+import ru.collection.doll_collection.dto.doll.DollOutputDto;
+import ru.collection.doll_collection.dto.doll.DollRequestClient;
 import ru.collection.doll_collection.mapping_service.DtoMapping;
 
 import java.io.IOException;

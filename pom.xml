@@ -14,9 +14,9 @@
         <module>manager-app</module>
 		<module>catalog-service</module>
         <module>user-app</module>
-		<module>security-service</module>
 		<module>eureka-server</module>
-	</modules>
+        <module>api-gateway-server</module>
+    </modules>
 
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>

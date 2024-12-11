@@ -1,8 +1,8 @@
 package ru.collection.doll_collection.client;
 
-import ru.collection.doll_collection.dto.DollInputDto;
-import ru.collection.doll_collection.dto.DollInputUpdateDto;
-import ru.collection.doll_collection.dto.DollOutputDto;
+import ru.collection.doll_collection.dto.doll.DollInputDto;
+import ru.collection.doll_collection.dto.doll.DollInputUpdateDto;
+import ru.collection.doll_collection.dto.doll.DollOutputDto;
 
 import java.io.IOException;
 import java.util.List;

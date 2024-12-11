@@ -1,8 +1,8 @@
 package ru.collection.doll_collection.service;
 
-import ru.collection.doll_collection.dto.DollDto;
-import ru.collection.doll_collection.dto.DollNewDto;
-import ru.collection.doll_collection.dto.DollUpdateDto;
+import ru.collection.doll_collection.dto.doll.DollDto;
+import ru.collection.doll_collection.dto.doll.DollNewDto;
+import ru.collection.doll_collection.dto.doll.DollUpdateDto;
 import ru.collection.doll_collection.entity.Doll;
 
 import java.util.List;

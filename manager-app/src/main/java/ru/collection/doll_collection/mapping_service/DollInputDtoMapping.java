@@ -2,7 +2,7 @@ package ru.collection.doll_collection.mapping_service;
 
 import org.springframework.stereotype.Component;
 import ru.collection.doll_collection.client.BadRequestException;
-import ru.collection.doll_collection.dto.*;
+import ru.collection.doll_collection.dto.doll.*;
 
 import java.io.IOException;
 import java.util.Collections;
