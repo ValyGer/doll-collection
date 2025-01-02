@@ -14,10 +14,10 @@ import java.util.Collection;
 
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     SimpleUrlAuthenticationSuccessHandler userSuccessHandler =
-            new SimpleUrlAuthenticationSuccessHandler("http://localhost:8082/user/dolls");
+            new SimpleUrlAuthenticationSuccessHandler("http://localhost:8765/user/dolls");
 
     SimpleUrlAuthenticationSuccessHandler adminSuccessHandler =
-            new SimpleUrlAuthenticationSuccessHandler("http://localhost:8081/dolls");
+            new SimpleUrlAuthenticationSuccessHandler("http://localhost:8765/dolls");
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
