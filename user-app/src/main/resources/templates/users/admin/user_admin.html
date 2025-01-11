@@ -9,7 +9,7 @@
 <br>
 <h1 data-th-text="${user.userName}"></h1>
 <div th:if="${user.image}">
-    <img width="140" th:src="@{rest/{userId}/avatar(userId=${user.id})}" alt="User image">
+    <img width="140" th:src="@{/rest/users/{userId}/avatar(userId=${user.id})}" alt="User image">
 </div>
 <ul>
     <li><strong>ID</strong>: <span data-th-text="${user.id}"></span></li>
