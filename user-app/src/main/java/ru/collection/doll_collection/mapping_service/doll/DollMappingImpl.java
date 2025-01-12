@@ -1,4 +1,4 @@
-package ru.collection.doll_collection.mapping_service;
+package ru.collection.doll_collection.mapping_service.doll;
 
 import org.springframework.stereotype.Service;
 import ru.collection.doll_collection.dto.doll.Doll;

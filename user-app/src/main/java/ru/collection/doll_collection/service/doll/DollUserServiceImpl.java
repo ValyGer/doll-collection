@@ -5,7 +5,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import ru.collection.doll_collection.client.DollUserClient;
 import ru.collection.doll_collection.dto.doll.DollOutDto;
-import ru.collection.doll_collection.mapping_service.DollMapping;
+import ru.collection.doll_collection.mapping_service.doll.DollMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;

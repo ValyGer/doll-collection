@@ -1,54 +1,127 @@
 version: '3.1'
 
 services:
-  catalog-server:
-    build: catalog-service
-    image: catalog-service-image
-    restart: "on-failure"
 
+  eserver:
+    build: eureka-server
+    hostname: eserver
+    environment:
+      - SPRING_APPLICATION_NAME=eserver
+      - EUREKA_NAME=eserver
+      - EUREKA_PORT=8761
+    container_name: eureka-server-cont
+    tty: true
+    ports:
+      - "8761:8761"
+    networks:
+      services-network-01:
+        aliases:
+          - eserver
+
+
+  catalog-service:
+    build: catalog-service
+    hostname: catalog-service
     container_name: catalog-service
+    tty: true
+#    restart: "on-failure"
     ports:
       - "8080:8080"
-    depends_on:
-      - dolls-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://dolls-db:5432/doll_collection_db
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_APPLICATION_NAME=catalog_doll_collection
+      - EUREKA_NAME=eserver
+      - EUREKA_PORT=8761
+      - DB_HOST=dolls-db # тут надо указывать имя контейнера,
+      #так как база развернута в отдельном контейнере,
+      #а localhost - по сути это обращение внутрь себя
+      - DB_PORT=5432
+      - DB_NAME=doll_collection_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+    networks:
+      services-network-01:
+        aliases:
+          - catalog-server
+    depends_on:
+      - eserver
+      - dolls-db
 
   dolls-db:
     image: postgres:14-alpine
-    volumes:
-      - /data/dolls-db
+#    volumes:
+#      - /data/dolls-db
     container_name: dolls-db
     ports:
-      - "6541:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_DB=doll_collection_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456
+    networks:
+      services-network-01:
+        aliases:
+          - test
 
   manager-app:
     build: manager-app
-    image: manager-app-image
-    restart: "on-failure"
-
+    hostname: manager-app
     container_name: manager-app
+    environment:
+      - SPRING_APPLICATION_NAME=manager-app
+      - API-GATE_PORT=8765
+      - API-GATE_HOST=api-gateway-cont
+      - EUREKA_NAME=eserver
+      - EUREKA_PORT=8761
+    tty: true
     ports:
       - "8081:8081"
-    environment:
-      - CATALOG_SERVER_URL=http://catalog-server:8080
+    networks:
+      services-network-01:
+        aliases:
+          - manager-app
+    depends_on:
+      - eserver
 
   user-app:
     build: user-app
-    image: user-app-image
-    restart: "on-failure"
-
+    hostname: user-app
     container_name: user-app
+    environment:
+      - SPRING_APPLICATION_NAME=user-app
+      - API-GATE_PORT=8765
+      - API-GATE_HOST=api-gateway-cont
+      - EUREKA_NAME=eserver
+      - EUREKA_PORT=8761
+    tty: true
     ports:
       - "8082:8082"
+    networks:
+      services-network-01:
+        aliases:
+          - user-app
+    depends_on:
+      - eserver
+
+  api-gateway-server:
+    build: api-gateway-server
+    hostname: api-gateway-server
     environment:
-      - CATALOG_SERVER_URL=http://catalog-server:8080
+      - SPRING_APPLICATION_NAME=api-gateway-server
+      - EUREKA_NAME=eserver
+      - EUREKA_PORT=8761
+    container_name: api-gateway-server
+    tty: true
+    ports:
+      - "80:8765"
+    networks:
+      services-network-01:
+        aliases:
+          - api-gateway-server
+    depends_on:
+      - eserver
+      - catalog-service
+      - user-app
+      - manager-app
 
 networks:
   services-network-01:
