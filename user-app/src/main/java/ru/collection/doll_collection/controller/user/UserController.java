@@ -75,7 +75,7 @@ public class UserController {
         UserDtoWithRole userDtoWithRole = this.userService.findUserByIdForView(userId);
         if (userDtoWithRole.getUserRole().equals(Role.ADMIN)) {
             model.addAttribute("user", userDtoMapper.userDtoWithRoleToUserDto(userDtoWithRole));
-            return "users/user/user";
+            return "users/admin/admin";
         } else {
             model.addAttribute("user", userDtoMapper.userDtoWithRoleToUserDto(userDtoWithRole));
             return "users/admin/user_admin";

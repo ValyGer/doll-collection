@@ -96,13 +96,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void deleteUserById(Long userId) {
-        UserDtoWithRole userDtoWithRole = findUserByIdForView(userId);
-        if (userDtoWithRole.getUserRole().equals(Role.ADMIN)) {
-            throw new RuntimeException("Администратор не может удалить свою страницу и может " +
-                    "обратиться за помощью к разработчику");
-        } else {
-            userRepository.deleteById(userId);
-        }
+        findUserById(userId);
+        userRepository.deleteById(userId);
     }
 
     @Override
