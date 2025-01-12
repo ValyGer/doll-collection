@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.collection.doll_collection.dto.user.UserDto;
-import ru.collection.doll_collection.dto.user.UserInitDto;
-import ru.collection.doll_collection.dto.user.UserInitUpdateDto;
+import ru.collection.doll_collection.constant.Role;
+import ru.collection.doll_collection.dto.user.*;
 import ru.collection.doll_collection.service.user.UserService;
 
 
@@ -20,6 +19,7 @@ import ru.collection.doll_collection.service.user.UserService;
 public class UserController {
 
     private final UserService userService;
+    private final UserDtoMapper userDtoMapper;
 
     // Получение страницы списка всех пользователей
     @GetMapping
@@ -72,7 +72,13 @@ public class UserController {
     // Просмотр пользователя админом
     @GetMapping("/admin/{userId:\\d+}")
     public String getUserByIdForAdmin(Model model, @PathVariable("userId") Long userId) {
-        model.addAttribute("user", this.userService.findUserById(userId));
-        return "users/admin/user_admin";
+        UserDtoWithRole userDtoWithRole = this.userService.findUserByIdForView(userId);
+        if (userDtoWithRole.getUserRole().equals(Role.ADMIN)) {
+            model.addAttribute("user", userDtoMapper.userDtoWithRoleToUserDto(userDtoWithRole));
+            return "users/user/user";
+        } else {
+            model.addAttribute("user", userDtoMapper.userDtoWithRoleToUserDto(userDtoWithRole));
+            return "users/admin/user_admin";
+        }
     }
 }

@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final UserDtoMapper userDtoMapper;
     private final UserInitDtoMapper userInitDtoMapper;
+    private final UserDtoWithRoleMapper userDtoWithRoleMapper;
     private final ImageService imageService;
     private final PasswordEncoder encoder;
 
@@ -95,8 +96,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void deleteUserById(Long userId) {
-        findUserById(userId);
-        userRepository.deleteById(userId);
+        UserDtoWithRole userDtoWithRole = findUserByIdForView(userId);
+        if (userDtoWithRole.getUserRole().equals(Role.ADMIN)) {
+            throw new RuntimeException("Администратор не может удалить свою страницу и может " +
+                    "обратиться за помощью к разработчику");
+        } else {
+            userRepository.deleteById(userId);
+        }
     }
 
     @Override
@@ -129,5 +135,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Long findUserByName(String userName) {
         return userRepository.findByUserName(userName).get().getId();
+    }
+
+    @Override
+    public UserDtoWithRole findUserByIdForView(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            return userDtoWithRoleMapper.userToUserDtoWithRole(optionalUser.get());
+        } else {
+            throw new NotFoundException("Пользователь с id = " + id + " не был найден");
+        }
     }
 }
