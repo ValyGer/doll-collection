@@ -8,7 +8,7 @@
     <h1>Редактирование куклы [[${doll.namePerson}]]</h1>
     <div style="color:red" data-th-if="${errors}">
         <h3>Допущены ошибки при вводе данных</h3>
-        <h3>Не забудь добавить картинки заново(</h3>
+        <h3>Не забудь добавить картинки заново, если загружала(</h3>
         <ul>
             <li data-th-each="error:${errors}" data-th-text="${error}"></li>
         </ul>
@@ -73,7 +73,7 @@
         </label><br>
         <button type="submit">Изменить</button>
     </form>
-<form method="post" data-th-action="@{http://localhost:8082/logout}">
+<form method="post" data-th-action="@{http://localhost:8765/logout}">
     <button type="submit">Выйти</button>
 </form>
 </body>

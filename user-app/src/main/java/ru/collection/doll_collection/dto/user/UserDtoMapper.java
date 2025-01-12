@@ -15,4 +15,13 @@ public class UserDtoMapper {
                 .image(user.getImage())
                 .build();
     }
+
+    public UserDto userDtoWithRoleToUserDto(UserDtoWithRole userDtoWithRole) {
+        return UserDto.builder()
+                .id(userDtoWithRole.getId())
+                .userEmail(userDtoWithRole.getUserEmail())
+                .userName(userDtoWithRole.getUserName())
+                .image(userDtoWithRole.getImage())
+                .build();
+    }
 }

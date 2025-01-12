@@ -3,8 +3,10 @@ package ru.collection.doll_collection.service.user;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ru.collection.doll_collection.dto.user.UserDto;
+import ru.collection.doll_collection.dto.user.UserDtoWithRole;
 import ru.collection.doll_collection.dto.user.UserInitDto;
 import ru.collection.doll_collection.dto.user.UserInitUpdateDto;
+import ru.collection.doll_collection.entity.User;
 
 
 import java.util.List;
@@ -27,4 +29,6 @@ public interface UserService {
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
     Long findUserByName(String userName);
+
+    UserDtoWithRole findUserByIdForView(Long id);
 }
